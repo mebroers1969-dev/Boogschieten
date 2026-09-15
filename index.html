@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1e3a5f">
+<title>Boogschiet Tracker</title>
+<!-- Startscherm-icoon voor mobiele browsers (Android & iOS) -->
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='38' fill='%231e293b'/><circle cx='96' cy='96' r='76' fill='%230f172a' stroke='%23334155' stroke-width='4'/><circle cx='96' cy='96' r='58' fill='%232563eb'/><circle cx='96' cy='96' r='40' fill='%23dc2626'/><circle cx='96' cy='96' r='22' fill='%23eab308'/><circle cx='96' cy='96' r='8' fill='%23fef08a'/></svg>">
+<link rel="icon" sizes="192x192" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='38' fill='%231e293b'/><circle cx='96' cy='96' r='76' fill='%230f172a' stroke='%23334155' stroke-width='4'/><circle cx='96' cy='96' r='58' fill='%232563eb'/><circle cx='96' cy='96' r='40' fill='%23dc2626'/><circle cx='96' cy='96' r='22' fill='%23eab308'/><circle cx='96' cy='96' r='8' fill='%23fef08a'/></svg>"><style>
+ :root{
+ --bg:#0f172a; --card:#1e293b; --card2:#263548; --text:#e2e8f0;
+ --muted:#94a3b8; --accent:#38bdf8; --accent2:#f59e0b; --green:#34d399;
+ --red:#f87171; --radius:14px;
+ --nav-height: 56px;
+ }
+ *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
+ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; background:var(--bg); color:var(--text); min-height:100vh;}
+ header{position:sticky; top:0; z-index:40; background:var(--card); padding:calc(12px + env(safe-area-inset-top)) 16px 12px; display:flex; align-items:center; gap:10px; box-shadow:0 2px 8px rgba(0,0,0,.4);}
+ header .logo{font-size:22px;}
+ header h1{font-size:18px; font-weight:700; flex:1;}
+ .btn-save-top{background:var(--accent); color:#082f49; border:none; border-radius:10px; padding:10px 16px; font-size:15px; font-weight:800; cursor:pointer;}
+ .btn-save-top:active{transform:scale(.95);}
+ .container{max-width:560px; margin:0 auto; padding:16px;}
+ 
+ #view-home, #view-stats, #view-detail, #view-profile{padding-bottom:calc(var(--nav-height) + 40px + env(safe-area-inset-bottom));}
+ #view-new{padding-bottom:calc(var(--nav-height) + 380px + env(safe-area-inset-bottom));}
+
+ .card{background:var(--card); border-radius:var(--radius); padding:16px; margin-bottom:14px;}
+ .hidden{display:none !important;}
+ h2{font-size:16px; margin-bottom:12px; color:var(--accent);}
+ label{display:block; font-size:13px; color:var(--muted); margin:12px 0 6px;}
+ input,select,textarea{width:100%; padding:12px; border-radius:10px; border:1px solid #334155; background:var(--bg); color:var(--text); font-size:16px;}
+ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); border-color:transparent;}
+ .seg{display:flex; gap:8px;}
+ .seg button{flex:1; padding:12px; border-radius:10px; border:2px solid #334155; background:var(--bg); color:var(--muted); font-size:15px; font-weight:600; cursor:pointer;}
+ .seg button.active-train{border-color:var(--green); color:var(--green); background:rgba(52,211,153,.1);}
+ .seg button.active-match{border-color:var(--accent2); color:var(--accent2); background:rgba(245,158,11,.1);}
+ .btn{width:100%; padding:14px; border:none; border-radius:12px; background:var(--accent); color:#082f49; font-size:16px; font-weight:700; cursor:pointer; margin-top:12px;}
+ .btn:active{transform:scale(.98);}
+ .btn-danger{background:var(--red); color:#450a0a;}
+ .btn-secondary{background:#334155; color:var(--text);}
+ 
+ .round-block{background:var(--card2); border-radius:12px; padding:12px; margin-bottom:10px;}
+ .round-block.current{outline:2px solid #0284c7;}
+ .round-block .round-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+ .round-block .round-head span{font-size:14px; font-weight:700; color:var(--muted);}
+ .round-block .round-head b{color:var(--green); font-size:14px;}
+ .round-block .round-head b.full{color:var(--accent2);}
+ .arrows{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+ .arrows input{text-align:center; padding:12px 4px; font-size:20px; font-weight:800; cursor:pointer;}
+ .arrows input.active{outline:2px solid var(--accent); border-color:transparent; background:#1e3a5f;}
+ .arrows input.done{border-color:var(--green);}
+
+ .round-dummy{opacity:0.35; pointer-events:none; border:1px dashed #475569; background:transparent;}
+ .round-dummy input{background:transparent; border-color:#334155; color:transparent; cursor:default;}
+ 
+ .c-gold{color:#fbbf24 !important;} .c-red{color:#f87171 !important;} .c-blue{color:#60a5fa !important;}
+ .c-black{color:#cbd5e1 !important;} .c-white{color:#94a3b8 !important;} .c-miss{color:#64748b !important;}
+ .badge{display:inline-block; padding:3px 10px; border-radius:20px; font-size:12px; font-weight:700;}
+ .badge-train{background:rgba(52,211,153,.15); color:var(--green);}
+ .badge-match{background:rgba(245,158,11,.15); color:var(--accent2);}
+ .badge-gold{background:rgba(245,158,11,.2); color:var(--accent2); margin-left:6px;}
+ .sess-item{background:var(--card); border-radius:var(--radius); padding:14px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; gap:10px; cursor:pointer;}
+ .sess-item .info{flex:1;}
+ .sess-item .title{font-weight:700; font-size:15px; margin-bottom:3px;}
+ .sess-item .sub{font-size:13px; color:var(--muted);}
+ .sess-item .score{font-size:20px; font-weight:800; color:var(--accent); text-align:right;}
+ .sess-item .avg-sub{font-size:12px; color:var(--muted); font-weight:normal;}
+ 
+ .stats-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+ .stat-box{background:var(--card2); border-radius:12px; padding:12px; text-align:center;}
+ .stat-box .num{font-size:24px; font-weight:800; color:var(--accent);}
+ .stat-box .sub-val{font-size:13px; font-weight:700; margin-top:2px;}
+ .stat-box .lbl{font-size:11px; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:0.5px;}
+ .stat-box.gold .num{color:var(--accent2);}
+ .stat-box.gold .sub-val{color:var(--accent2);}
+ .stat-box.green .num{color:var(--green);}
+ .stat-box.green .sub-val{color:var(--green);}
+ 
+ .comp-table{width:100%; border-collapse:collapse; margin-top:8px; font-size:13px;}
+ .comp-table th, .comp-table td{padding:9px 6px; text-align:center; border-bottom:1px solid #334155;}
+ .comp-table th:first-child, .comp-table td:first-child{text-align:left;}
+ .comp-table th{color:var(--muted); font-size:12px;}
+ .comp-table .c-t{color:var(--green); font-weight:700;}
+ .comp-table .c-m{color:var(--accent2); font-weight:700;}
+
+ .distrib-row{display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:13px;}
+ .distrib-badge{width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; flex-shrink:0;}
+ .bg-gold{background:#eab308; color:#422006;}
+ .bg-red{background:#dc2626; color:#fff;}
+ .bg-blue{background:#2563eb; color:#fff;}
+ .bg-black{background:#334155; color:#cbd5e1; border:1px solid #475569;}
+ .bg-white{background:#94a3b8; color:#0f172a;}
+ .bg-miss{background:#1e293b; color:#64748b; border:1px dashed #475569;}
+ .distrib-bar-container{flex:1;}
+ .distrib-info{display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-bottom:3px;}
+ .distrib-info b{color:var(--text);}
+ .distrib-bar-wrap{background:var(--card2); height:7px; border-radius:6px; overflow:hidden;}
+ .distrib-bar{height:100%; border-radius:6px;}
+
+ .empty{text-align:center; color:var(--muted); padding:40px 20px; font-size:15px;}
+ .detail-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #334155; font-size:14px;}
+ .detail-row span:last-child{color:var(--muted);}
+ .bar-wrap{background:var(--card2); border-radius:8px; height:8px; margin-top:6px; overflow:hidden;}
+ .bar{height:100%; border-radius:8px;}
+ 
+ .filter-row{display:flex; gap:8px; margin-bottom:14px;}
+ .filter-row button{flex:1; padding:10px; border-radius:10px; border:1px solid #334155; background:var(--card); color:var(--muted); font-size:14px; font-weight:600; cursor:pointer;}
+ .filter-row button.on{background:var(--accent); color:#082f49; border-color:transparent;}
+
+ nav{position:fixed; bottom:0; left:0; right:0; height:calc(var(--nav-height) + env(safe-area-inset-bottom)); background:var(--card); display:flex; box-shadow:0 -2px 10px rgba(0,0,0,.4); z-index:30;}
+ nav button{flex:1; padding:8px 4px calc(8px + env(safe-area-inset-bottom)); background:none; border:none; color:var(--muted); font-size:11px; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;}
+ nav button .ico{font-size:20px;}
+ nav button.active{color:var(--accent);}
+ 
+ .numpad{position:fixed; bottom:calc(var(--nav-height) + env(safe-area-inset-bottom)); left:0; right:0; background:var(--card); padding:8px 12px 10px; box-shadow:0 -4px 20px rgba(0,0,0,.7); z-index:25; display:grid; grid-template-columns:repeat(4,1fr); gap:8px; max-width:560px; margin:0 auto; border-top:1px solid #334155;}
+ .numpad button{border:none; border-radius:12px; padding:12px 0; font-size:20px; font-weight:800; cursor:pointer; color:#fff; box-shadow:0 2px 4px rgba(0,0,0,.3);}
+ .numpad button:active{transform:scale(.93);}
+ .b-gold{background:#eab308; color:#422006 !important;}
+ .b-red{background:#dc2626;}
+ .b-blue{background:#2563eb;}
+ .b-black{background:#475569;}
+ .b-white{background:#94a3b8; color:#0f172a !important;}
+ .b-miss{background:#1e293b; border:1px solid #475569; color:#cbd5e1 !important;}
+ .b-back{background:#334155; font-size:18px;}
+
+ .modal-overlay{position:fixed; inset:0; background:rgba(15,23,42,0.85); z-index:50; display:flex; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(4px);}
+ .modal-box{background:var(--card); border:1px solid #334155; border-radius:var(--radius); padding:24px 20px; width:100%; max-width:380px; box-shadow:0 10px 30px rgba(0,0,0,0.5); text-align:center;}
+ .modal-box h2{font-size:18px; color:var(--text); margin-bottom:8px;}
+ .modal-box p{font-size:14px; color:var(--muted); margin-bottom:20px;}
+ .modal-choice-btn{width:100%; padding:16px; border-radius:12px; border:2px solid transparent; font-size:16px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px;}
+ .modal-choice-btn:active{transform:scale(0.98);}
+ .modal-choice-train{background:rgba(52,211,153,0.15); border-color:var(--green); color:var(--green);}
+ .modal-choice-match{background:rgba(245,158,11,0.15); border-color:var(--accent2); color:var(--accent2);}
+ .modal-btn-cancel{background:none; border:none; color:var(--muted); font-size:14px; padding:10px; cursor:pointer;}
+
+ .card-preview-container{width:100%; border:2px dashed #334155; border-radius:12px; padding:8px; text-align:center; cursor:pointer; transition:border-color .2s; position:relative; background:var(--bg); min-height:160px; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+ .card-preview-container:active{border-color:var(--accent);}
+ .card-preview-img{max-width:100%; max-height:220px; border-radius:8px; object-fit:contain; display:block;}
+ .card-placeholder{color:var(--muted); font-size:14px; padding:20px 10px;}
+ .card-placeholder span{font-size:36px; display:block; margin-bottom:8px;}
+
+ .lightbox-overlay{position:fixed; inset:0; background:rgba(10,15,28,0.95); z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(6px); cursor:pointer;}
+ .lightbox-img{max-width:96vw; max-height:85vh; border-radius:12px; object-fit:contain; box-shadow:0 10px 40px rgba(0,0,0,.8); transform:scale(1); transition:transform .2s ease-out;}
+ .lightbox-hint{color:var(--muted); font-size:13px; margin-top:14px; background:rgba(30,41,59,0.8); padding:6px 14px; border-radius:20px;}
+</style>
+</head>
+<body>
+<header>
+ <span class="logo">🏹</span>
+ <h1 id="headerTitle">Boogschiet Tracker</h1>
+ <button id="btnSave" class="btn-save-top hidden">💾 Opslaan</button>
+</header>
+
+<div class="container">
+ <!-- HOME VIEW -->
+ <div id="view-home">
+ <div class="stats-grid" id="homeStats"></div>
+ <h2 style="margin-top:20px;">Recente sessies</h2>
+ <div class="filter-row">
+ <button class="on" data-f="alles">Alles</button>
+ <button data-f="training">Training</button>
+ <button data-f="wedstrijd">Wedstrijd</button>
+ </div>
+ <div id="sessionList"></div>
+ </div>
+
+ <!-- NIEUWE SESSIE VIEW -->
+ <div id="view-new" class="hidden">
+ <button class="btn btn-secondary" id="btnToggleInfo" style="margin-top:0;">⚙️ Sessiegegevens (datum, type, afstand...) ▾</button>
+ <div id="infoCard" class="card hidden" style="margin-top:12px;">
+ <h2>Sessiegegevens</h2>
+ <label>Type sessie</label>
+ <div class="seg" id="typeSeg">
+ <button id="btnTrain" class="active-train">🎯 Training</button>
+ <button id="btnMatch">🏆 Wedstrijd</button>
+ </div>
+ <label for="inpDate">Datum</label>
+ <input type="date" id="inpDate">
+ <label for="inpDist">Afstand (meter)</label>
+ <input type="number" id="inpDist" value="18" min="1" max="90">
+ <label for="inpBow">Discipline</label>
+ <select id="inpBow">
+ <option>Recurve</option>
+ <option>Compound</option>
+ <option>Barebow</option>
+ <option>Traditioneel</option>
+ <option>Longbow</option>
+ </select>
+ <label for="inpNote">Notitie (optioneel)</label>
+ <textarea id="inpNote" rows="2" placeholder="bijv. vizierinstelling, wind..."></textarea>
+ </div>
+
+ <div class="card">
+ <h2>Score — 10 ronden à 3 pijlen</h2>
+ <div id="roundsForm"></div>
+ </div>
+ </div>
+
+ <!-- DETAIL VIEW -->
+ <div id="view-detail" class="hidden">
+ <div class="card" id="detailCard"></div>
+ <button class="btn btn-secondary" id="btnBackHome">🏠 Terug naar Home</button>
+ <button class="btn btn-danger" id="btnDelete">🗑️ Sessie verwijderen</button>
+ </div>
+
+ <!-- STATISTIEKEN VIEW -->
+ <div id="view-stats" class="hidden">
+ <div class="card">
+ <h2>Vergelijking: Training vs. Wedstrijd</h2>
+ <div id="typeComparison"></div>
+ </div>
+
+ <div class="card">
+ <h2>Pijldistributie (schotverdeling)</h2>
+ <div class="filter-row" style="margin-bottom:12px;">
+ <button class="on" id="btnDistAll" onclick="setDistFilter('alles')">Alles</button>
+ <button id="btnDistTrain" onclick="setDistFilter('training')">Training</button>
+ <button id="btnDistMatch" onclick="setDistFilter('wedstrijd')">Wedstrijd</button>
+ </div>
+ <div id="arrowDistribution"></div>
+ </div>
+
+ <div class="card">
+ <h2>Algemene Statistieken</h2>
+ <div id="statsContent"></div>
+ </div>
+ 
+ <div class="card">
+ <h2>Gegevensbeheer</h2>
+ <button class="btn btn-secondary" id="btnExport" style="margin-top:0;">📥 Exporteer backup (Kies map)</button>
+ <input type="file" id="inpImport" accept=".json" class="hidden">
+ <button class="btn btn-secondary" id="btnImportTrigger" style="margin-top:8px;">📤 Importeer backup</button>
+ <div id="lastBackupInfo" style="font-size:12px; color:var(--muted); margin-top:8px; text-align:center;"></div>
+ </div>
+ </div>
+
+ <!-- PROFIEL VIEW -->
+ <div id="view-profile" class="hidden">
+ <div class="card">
+ <h2>🪪 Bondspas</h2>
+ <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Tik op de foto om deze groot weer te geven.</p>
+ 
+ <div class="card-preview-container" id="passContainer">
+ <div class="card-placeholder" id="passPlaceholder">
+ <span>📷</span>
+ <b>Tik om foto van je bondspas te uploaden</b>
+ </div>
+ <img id="passImg" class="card-preview-img hidden" alt="Bondspas">
+ </div>
+ 
+ <input type="file" id="inpPassFile" accept="image/*" class="hidden">
+ 
+ <div id="passActions" class="hidden" style="display:flex; gap:8px; margin-top:10px;">
+ <button class="btn btn-secondary" id="btnChangePass" style="flex:1; margin-top:0; font-size:14px; padding:10px;">🔄 Wijzigen</button>
+ <button class="btn btn-danger" id="btnRemovePass" style="flex:1; margin-top:0; font-size:14px; padding:10px;">🗑️ Verwijderen</button>
+ </div>
+ </div>
+
+ <div class="card">
+ <h2>Schuttersgegevens</h2>
+ <label for="profName">Volledige naam</label>
+ <input type="text" id="profName">
+
+ <label for="profId">Bondsnummer / Lidnummer</label>
+ <input type="text" id="profId">
+
+ <label for="profClub">Vereniging</label>
+ <input type="text" id="profClub">
+
+ <label for="profDiscipline">Standaard discipline</label>
+ <select id="profDiscipline">
+ <option>Recurve</option>
+ <option>Compound</option>
+ <option>Barebow</option>
+ <option>Traditioneel</option>
+ <option>Longbow</option>
+ </select>
+
+ <label for="profPoundage">Trekgewicht (lbs)</label>
+ <input type="text" id="profPoundage">
+
+ <label for="profNotes">Boogopstelling & Notities</label>
+ <textarea id="profNotes" rows="3"></textarea>
+
+ <button class="btn" id="btnSaveProfile" style="margin-top:16px;">💾 Gegevens opslaan</button>
+ </div>
+ </div>
+</div>
+
+<!-- NAVIGATIEBALK -->
+<nav>
+ <button class="active" data-view="home"><span class="ico">🏠</span>Home</button>
+ <button data-view="new"><span class="ico">➕</span>Nieuw</button>
+ <button data-view="stats"><span class="ico">📊</span>Stats</button>
+ <button data-view="profile"><span class="ico">👤</span>Profiel</button>
+</nav>
+
+<!-- LIGHTBOX VOOR PAS -->
+<div id="lightboxOverlay" class="lightbox-overlay hidden">
+ <img id="lightboxImg" class="lightbox-img" alt="Bondspas vergroot">
+ <div class="lightbox-hint">Tik op het scherm om te sluiten</div>
+</div>
+
+<!-- MODAL VOOR KEUZE NIEUWE SESSIE -->
+<div id="modalTypePrompt" class="modal-overlay hidden">
+ <div class="modal-box">
+ <h2>Nieuwe sessie</h2>
+ <p>Wat voor sessie wil je registreren?</p>
+ <button class="modal-choice-btn modal-choice-train" id="btnChooseTrain">🎯 Training</button>
+ <button class="modal-choice-btn modal-choice-match" id="btnChooseMatch">🏆 Wedstrijd</button>
+ <button class="modal-btn-cancel" id="btnCancelModal">Annuleren</button>
+ </div>
+</div>
+
+<!-- CIJFERBLOK -->
+<div id="numpad" class="numpad hidden">
+ <button class="b-miss" data-v="M">M</button>
+ <button class="b-white" data-v="1">1</button>
+ <button class="b-white" data-v="2">2</button>
+ <button class="b-black" data-v="3">3</button>
+ <button class="b-black" data-v="4">4</button>
+ <button class="b-blue" data-v="5">5</button>
+ <button class="b-blue" data-v="6">6</button>
+ <button class="b-red" data-v="7">7</button>
+ <button class="b-red" data-v="8">8</button>
+ <button class="b-gold" data-v="9">9</button>
+ <button class="b-gold" data-v="10">10</button>
+ <button class="b-gold" data-v="X" style="font-weight:900;">X</button>
+ <button class="b-back" id="btnBack" style="grid-column: span 4;">⌫ Wis pijl</button>
+</div>
+
+<script>
+const LS_KEY = 'boogschiet_sessions_v1';
+const LS_PROFILE_KEY = 'boogschiet_profile_v1';
+const LS_PASS_KEY = 'boogschiet_pass_img_v1';
+
+const TOTAL_ROUNDS = 10, ARROWS_PER_ROUND = 3;
+let sessions = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+let currentType = 'training';
+let editingId = null;
+let filter = 'alles';
+let distFilter = 'alles';
+let detailId = null;
+let activeField = null;
+
+const $ = id => document.getElementById(id);
+const saveLS = () => localStorage.setItem(LS_KEY, JSON.stringify(sessions));
+
+// ---------------- INDEXEDDB VOOR MAPHANDLE IN EDGE ----------------
+function getDb() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open('EdgeBackupFolderDb', 1);
+    req.onupgradeneeded = () => req.result.createObjectStore('handles');
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function saveLastHandle(handle) {
+  try {
+    const db = await getDb();
+    const tx = db.transaction('handles', 'readwrite');
+    tx.objectStore('handles').put(handle, 'last_folder_handle');
+  } catch (e) {}
+}
+
+async function getLastHandle() {
+  try {
+    const db = await getDb();
+    return new Promise((resolve) => {
+      const tx = db.transaction('handles', 'readonly');
+      const req = tx.objectStore('handles').get('last_folder_handle');
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => resolve(null);
+    });
+  } catch (e) {
+    return null;
+  }
+}
+
+function updateBackupStatus() {
+  const last = localStorage.getItem('boogschiet_last_backup_date');
+  const statusEl = $('lastBackupInfo');
+  if (statusEl && last) {
+    statusEl.textContent = `Laatste backup opgeslagen: ${last}`;
+  }
+}
+
+// ---------------- HULPFUNCTIES SCORES ----------------
+function valToNum(v){
+  if (v === null || v === undefined || v === '') return 0;
+  if (typeof v === 'string') {
+    const u = v.toUpperCase();
+    if (u === 'X') return 10;
+    if (u === 'M') return 0;
+    return parseInt(u, 10) || 0;
+  }
+  return Number(v) || 0;
+}
+
+function scoreClass(v){
+  const str = String(v).toUpperCase();
+  if (str === '0' || str === 'M') return 'c-miss';
+  const num = valToNum(v);
+  if (str === 'X' || num >= 9) return 'c-gold';
+  if (num >= 7) return 'c-red';
+  if (num >= 5) return 'c-blue';
+  if (num >= 3) return 'c-black';
+  return 'c-white';
+}
+
+function show(view){
+  ['home','new','stats','detail','profile'].forEach(v => {
+    const el = $('view-' + v);
+    if (el) el.classList.add('hidden');
+  });
+  const currentView = $('view-' + view);
+  if (currentView) currentView.classList.remove('hidden');
+  
+  document.querySelectorAll('nav button').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === view || (view==='detail' && b.dataset.view==='home'));
+  });
+  
+  const typeLabel = currentType === 'wedstrijd' ? '🏆 Wedstrijd' : '🎯 Training';
+  $('headerTitle').textContent = {
+    home:'Boogschiet Tracker', 
+    new: editingId ? `Bewerken (${typeLabel})` : `Nieuwe ${typeLabel}`, 
+    stats:'Statistieken', 
+    detail:'Sessie detail',
+    profile:'Mijn Profiel'
+  }[view] || 'Boogschiet Tracker';
+  
+  const isNew = view === 'new';
+  $('numpad').classList.toggle('hidden', !isNew);
+  $('btnSave').classList.toggle('hidden', !isNew);
+  if (!isNew) window.scrollTo(0,0);
+}
+
+function calcStats(arr){
+  const count = arr.length;
+  const arrows = arr.reduce((a,s) => a + (Number(s.totalArrows) || (s.rounds ? s.rounds.flat().length : 0)), 0);
+  const score = arr.reduce((a,s) => a + (Number(s.total) || 0), 0);
+  const x = arr.reduce((a,s) => a + (Number(s.xCount) || (s.rounds ? s.rounds.flat().filter(v=>String(v).toUpperCase()==='X').length : 0)), 0);
+  const avgTot = count ? Math.round(score / count) : '–';
+  const avgP = arrows ? (score / arrows).toFixed(2) : '–';
+  const perc = (arrows * 10) ? ((score / (arrows * 10)) * 100).toFixed(1) : '–';
+  const xPerc = arrows ? ((x / arrows) * 100).toFixed(1) : '–';
+  const validScores = arr.map(s => Number(s.total) || 0);
+  const pr = count && validScores.length ? Math.max(...validScores) : '–';
+  return { count, arrows, score, x, avgTot, avgP, perc, xPerc, pr };
+}
+
+// ---------------- HOME VIEW ----------------
+function renderHome(){
+  const trainSessions = sessions.filter(s=>s.type==='training');
+  const matchSessions = sessions.filter(s=>s.type==='wedstrijd');
+  
+  const stAll = calcStats(sessions);
+  const stTrain = calcStats(trainSessions);
+  const stMatch = calcStats(matchSessions);
+
+  let tilesHtml = '';
+
+  if (filter === 'training') {
+    tilesHtml = `
+    <div class="stat-box green"><div class="num">${stTrain.count}</div><div class="sub-val" style="color:var(--muted);">${stTrain.arrows} pijlen</div><div class="lbl">🎯 Trainingen</div></div>
+    <div class="stat-box green"><div class="num">${stTrain.pr}</div><div class="sub-val" style="color:var(--muted);">punten</div><div class="lbl">PR Training</div></div>
+    <div class="stat-box green"><div class="num">${stTrain.avgTot}</div><div class="sub-val">${stTrain.perc !== '–' ? stTrain.perc + '%' : '–'}</div><div class="lbl">Gem. Score / Sessie</div></div>
+    <div class="stat-box green"><div class="num">${stTrain.avgP !== '–' ? stTrain.avgP : '–'}</div><div class="sub-val">${stTrain.x}x X (${stTrain.xPerc}%)</div><div class="lbl">Gem. per Pijl</div></div>`;
+  } else if (filter === 'wedstrijd') {
+    tilesHtml = `
+    <div class="stat-box gold"><div class="num">${stMatch.count}</div><div class="sub-val" style="color:var(--muted);">${stMatch.arrows} pijlen</div><div class="lbl">🏆 Wedstrijden</div></div>
+    <div class="stat-box gold"><div class="num">${stMatch.pr}</div><div class="sub-val" style="color:var(--muted);">punten</div><div class="lbl">PR Wedstrijd</div></div>
+    <div class="stat-box gold"><div class="num">${stMatch.avgTot}</div><div class="sub-val">${stMatch.perc !== '–' ? stMatch.perc + '%' : '–'}</div><div class="lbl">Gem. Score / Sessie</div></div>
+    <div class="stat-box gold"><div class="num">${stMatch.avgP !== '–' ? stMatch.avgP : '–'}</div><div class="sub-val">${stMatch.x}x X (${stMatch.xPerc}%)</div><div class="lbl">Gem. per Pijl</div></div>`;
+  } else {
+    tilesHtml = `
+    <div class="stat-box"><div class="num">${stAll.count}</div><div class="sub-val" style="color:var(--muted);">${stAll.avgP !== '–' ? stAll.avgP + ' p/p' : '–'}</div><div class="lbl">Totaal (${stAll.arrows} pijlen)</div></div>
+    <div class="stat-box"><div class="num">${stAll.pr}</div><div class="sub-val" style="color:var(--muted);">punten</div><div class="lbl">Persoonlijk Record</div></div>
+    <div class="stat-box green"><div class="num">${stTrain.avgTot}</div><div class="sub-val">${stTrain.avgP !== '–' ? stTrain.avgP + ' p/p' : '–'}</div><div class="lbl">🎯 Gem. Training</div></div>
+    <div class="stat-box gold"><div class="num">${stMatch.avgTot}</div><div class="sub-val">${stMatch.avgP !== '–' ? stMatch.avgP + ' p/p' : '–'}</div><div class="lbl">🏆 Gem. Wedstrijd</div></div>`;
+  }
+
+  $('homeStats').innerHTML = tilesHtml;
+
+  let list = sessions.slice().sort((a,b) => String(b.date || '').localeCompare(String(a.date || '')) || String(b.id || '').localeCompare(String(a.id || '')));
+  if (filter !== 'alles') list = list.filter(s=>s.type===filter);
+  $('sessionList').innerHTML = list.length ? list.map(s=>{
+    const pCount = Number(s.totalArrows) || (s.rounds ? s.rounds.flat().length : 30);
+    const pAvg = pCount ? (Number(s.total || 0) / pCount).toFixed(2) : '0';
+    const xCount = s.xCount ? `<span class="badge badge-gold">${s.xCount}x X</span>` : '';
+    return `
+    <div class="sess-item" onclick="openDetail('${s.id}')">
+      <div class="info">
+        <div class="title">${fmtDate(s.date)} <span class="badge badge-${s.type==='training'?'train':'match'}">${s.type==='training'?'Training':'Wedstrijd'}</span>${xCount}</div>
+        <div class="sub">${s.distance || 18}m · ${s.bow || 'Recurve'} · ${pCount} pijlen</div>
+      </div>
+      <div class="score">${s.total || 0}<div class="avg-sub">${pAvg} p/p</div></div>
+    </div>`;
+  }).join('') : `<div class="empty">Nog geen sessies gelogd.</div>`;
+}
+
+function fmtDate(d){
+  if (!d) return '–';
+  const dt = new Date(d + 'T00:00:00');
+  if (isNaN(dt.getTime())) return String(d);
+  return dt.toLocaleDateString('nl-NL',{weekday:'short', day:'numeric', month:'short', year:'numeric'});
+}
+
+function fieldId(r,a){ return 'r'+r+'a'+a; }
+function allFields(){ return [...document.querySelectorAll('#roundsForm input:not([disabled])')]; }
+
+function colorField(f){
+  const v = f.value.trim().toUpperCase();
+  f.classList.remove('c-gold','c-red','c-blue','c-black','c-white','c-miss');
+  if (v !== '') f.classList.add(scoreClass(v));
+}
+
+function setActive(f){
+  allFields().forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.round-block').forEach(rb => rb.classList.remove('current'));
+  if (f){
+    f.classList.add('active');
+    activeField = f;
+    const block = f.closest('.round-block');
+    if (block) {
+      block.classList.add('current');
+      block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+}
+
+function buildRoundsForm(){
+  let html = '';
+  for (let r=0; r<TOTAL_ROUNDS; r++){
+    html += `<div class="round-block" id="block-r${r}">
+      <div class="round-head"><span>Ronde ${r+1}</span><b id="sum${r}"></b></div>
+      <div class="arrows">`;
+    for (let a=0; a<ARROWS_PER_ROUND; a++){
+      html += `<input type="text" readonly id="${fieldId(r,a)}" placeholder="${a+1}">`;
+    }
+    html += `</div></div>`;
+  }
+  
+  html += `<div class="round-block round-dummy">
+    <div class="round-head"><span>Ronde 11 <i>(Buffer)</i></span><b>–</b></div>
+    <div class="arrows"><input type="text" disabled placeholder="–"><input type="text" disabled placeholder="–"><input type="text" disabled placeholder="–"></div>
+  </div>`;
+
+  $('roundsForm').innerHTML = html;
+  allFields().forEach(inp => {
+    inp.addEventListener('click', () => setActive(inp));
+    inp.addEventListener('focus', () => setActive(inp));
+  });
+  setActive(allFields()[0]);
+  updateAllRoundSums();
+}
+
+function nextField(id){
+  const m = id.match(/^r(\d+)a(\d+)$/);
+  let r = parseInt(m[1]), a = parseInt(m[2]);
+  if (a < ARROWS_PER_ROUND-1) a++; else { r++; a = 0; }
+  if (r >= TOTAL_ROUNDS) return null;
+  return $(fieldId(r,a));
+}
+
+function prevField(id){
+  const m = id.match(/^r(\d+)a(\d+)$/);
+  let r = parseInt(m[1]), a = parseInt(m[2]);
+  if (a > 0) a--; else { r--; a = ARROWS_PER_ROUND-1; }
+  if (r < 0) return null;
+  return $(fieldId(r,a));
+}
+
+function readRounds(){
+  const rounds = [];
+  for (let r=0; r<TOTAL_ROUNDS; r++){
+    const vals = [];
+    for (let a=0; a<ARROWS_PER_ROUND; a++){
+      const raw = $(fieldId(r,a)).value.trim().toUpperCase();
+      vals.push(raw === '' ? null : raw);
+    }
+    rounds.push(vals);
+  }
+  return rounds;
+}
+
+function updateAllRoundSums(){
+  let runningTotal = 0;
+  let runningMax = 0;
+
+  for (let r = 0; r < TOTAL_ROUNDS; r++){
+    const vals = [];
+    for (let a = 0; a < ARROWS_PER_ROUND; a++){
+      const raw = $(fieldId(r,a)).value.trim().toUpperCase();
+      vals.push(raw === '' ? null : raw);
+    }
+    const filled = vals.filter(v => v !== null);
+    const sumEl = $('sum' + r);
+    if (!sumEl) continue;
+
+    if (filled.length === ARROWS_PER_ROUND){
+      const roundSum = filled.reduce((x, y) => x + valToNum(y), 0);
+      runningTotal += roundSum;
+      runningMax += (ARROWS_PER_ROUND * 10);
+      sumEl.textContent = r === 0 ? `${roundSum} / 30` : `${roundSum}/30 · Totaal: ${runningTotal}/${runningMax}`;
+      sumEl.className = 'full';
+    } else if (filled.length > 0){
+      const roundSum = filled.reduce((x, y) => x + valToNum(y), 0);
+      sumEl.textContent = `${roundSum} …`;
+      sumEl.className = '';
+    } else {
+      sumEl.textContent = '';
+      sumEl.className = '';
+    }
+  }
+}
+
+document.querySelectorAll('#numpad button[data-v]').forEach(b => {
+  b.onclick = () => {
+    let f = activeField;
+    if (!f || f.value.trim() !== '') f = allFields().find(x => x.value.trim()==='') || f;
+    if (!f) return;
+    f.value = b.dataset.v;
+    f.classList.add('done');
+    colorField(f);
+    updateAllRoundSums();
+    const nx = nextField(f.id);
+    if (nx) setActive(nx);
+  };
+});
+
+$('btnBack').onclick = () => {
+  let f = activeField;
+  if (!f) return;
+  if (f.value.trim() === ''){
+    const p = prevField(f.id);
+    if (p){
+      p.value=''; p.classList.remove('done'); colorField(p); updateAllRoundSums();
+      setActive(p);
+    }
+  } else {
+    f.value=''; f.classList.remove('done'); colorField(f); updateAllRoundSums();
+  }
+};
+
+$('btnToggleInfo').onclick = () => {
+  const c = $('infoCard').classList.toggle('hidden');
+  $('btnToggleInfo').textContent = c ? '⚙️ Sessiegegevens ▾' : '⚙️ Sessiegegevens ▴';
+};
+
+function applyType(type){
+  currentType = type;
+  $('btnTrain').className = type === 'training' ? 'active-train' : '';
+  $('btnMatch').className = type === 'wedstrijd' ? 'active-match' : '';
+}
+
+function resetNew(selectedType = 'training'){
+  editingId = null;
+  applyType(selectedType);
+  $('inpDate').value = new Date().toISOString().slice(0,10);
+  $('inpDist').value = 18; $('inpNote').value = ''; 
+  
+  const prof = JSON.parse(localStorage.getItem(LS_PROFILE_KEY) || '{}');
+  if (prof.discipline) $('inpBow').value = prof.discipline;
+  else $('inpBow').selectedIndex = 0;
+
+  $('infoCard').classList.add('hidden');
+  $('btnToggleInfo').textContent = '⚙️ Sessiegegevens ▾';
+  buildRoundsForm();
+}
+
+$('btnTrain').onclick = () => applyType('training');
+$('btnMatch').onclick = () => applyType('wedstrijd');
+$('btnChooseTrain').onclick = () => { $('modalTypePrompt').classList.add('hidden'); resetNew('training'); show('new'); };
+$('btnChooseMatch').onclick = () => { $('modalTypePrompt').classList.add('hidden'); resetNew('wedstrijd'); show('new'); };
+$('btnCancelModal').onclick = () => $('modalTypePrompt').classList.add('hidden');
+
+$('btnSave').onclick = () => {
+  const roundsData = readRounds();
+  const complete = roundsData.filter(r => r.every(v => v !== null));
+  const partial = roundsData.filter(r => r.some(v => v !== null) && !r.every(v => v !== null));
+  if (partial.length){ alert('Vul alle 3 de pijlen van de ronde in.'); return; }
+  if (!complete.length){ alert('Vul minstens één ronde in.'); return; }
+
+  const flatArrows = complete.flat();
+  const total = flatArrows.reduce((a,b)=> a + valToNum(b), 0);
+  const totalArrows = flatArrows.length;
+  const xCount = flatArrows.filter(v => String(v).toUpperCase() === 'X').length;
+  const tensCount = flatArrows.filter(v => String(v) === '10').length;
+
+  const data = {
+    type: currentType,
+    date: $('inpDate').value || new Date().toISOString().slice(0,10),
+    distance: parseInt($('inpDist').value)||0,
+    bow: $('inpBow').value,
+    note: $('inpNote').value.trim(),
+    rounds: complete,
+    total,
+    totalArrows,
+    xCount,
+    tensCount
+  };
+
+  if (editingId){
+    const i = sessions.findIndex(s=>s.id===editingId);
+    sessions[i] = {...sessions[i], ...data};
+  } else {
+    sessions.push({id: Date.now().toString(36), ...data});
+  }
+  saveLS(); show('home'); renderHome();
+};
+
+window.openDetail = id => {
+  detailId = id;
+  const s = sessions.find(x=>x.id===id);
+  if (!s) return;
+  const pCount = Number(s.totalArrows) || (s.rounds ? s.rounds.flat().length : 30);
+  const max = pCount * 10;
+  const perc = max ? Math.round((Number(s.total || 0) / max) * 100) : 0;
+  const avgPijl = pCount ? (Number(s.total || 0) / pCount).toFixed(2) : '0';
+  const xNum = s.xCount || (s.rounds ? s.rounds.flat().filter(v => String(v).toUpperCase() === 'X').length : 0);
+
+  let runningDetailTotal = 0;
+  $('detailCard').innerHTML = `
+  <h2>${fmtDate(s.date)} <span class="badge badge-${s.type==='training'?'train':'match'}">${s.type==='training'?'Training':'Wedstrijd'}</span></h2>
+  <div class="detail-row"><span>Totaalscore</span><b style="color:var(--accent);font-size:18px;">${s.total || 0} / ${max}</b></div>
+  <div class="bar-wrap"><div class="bar" style="width:${perc}%;background:${perc>=70?'var(--green)':perc>=40?'var(--accent2)':'var(--red)'};"></div></div>
+  <div class="detail-row"><span>Gemiddelde per pijl</span><b style="color:var(--accent2);">${avgPijl} p/p</b></div>
+  <div class="detail-row"><span>Percentage</span><span>${perc}%</span></div>
+  <div class="detail-row"><span>Aantal X-en</span><span>${xNum}</span></div>
+  <div class="detail-row"><span>Afstand</span><span>${s.distance || 18}m</span></div>
+  <div class="detail-row"><span>Discipline</span><span>${s.bow || 'Recurve'}</span></div>
+  ${s.note ? `<div class="detail-row"><span>Notitie</span><span>${s.note}</span></div>` : ''}
+  <div style="margin-top:14px;">${s.rounds.map((r,i)=>{
+    const sum = r.reduce((a,b)=> a + valToNum(b), 0);
+    runningDetailTotal += sum;
+    const colored = r.map(v => `<span class="${scoreClass(String(v).toUpperCase())}" style="font-weight:800;">${String(v).toUpperCase()}</span>`).join(' · ');
+    return `<div class="round-block"><div class="round-head"><span>Ronde ${i+1}</span><b class="full">${sum}/${r.length*10} · Totaal: ${runningDetailTotal}/${(i+1)*30}</b></div><div>${colored}</div></div>`;
+  }).join('')}</div>
+  <button class="btn btn-secondary" id="btnEdit" style="margin-top:16px;">✏️ Bewerken</button>`;
+  show('detail');
+
+  $('btnEdit').onclick = () => {
+    editingId = id;
+    applyType(s.type);
+    $('inpDate').value = s.date; $('inpDist').value = s.distance || 18;
+    $('inpBow').value = s.bow || 'Recurve'; $('inpNote').value = s.note||'';
+    $('infoCard').classList.remove('hidden');
+    buildRoundsForm();
+    if (s.rounds) {
+      s.rounds.forEach((r,ri)=>{
+        r.forEach((v,ai)=>{
+          const f = $(fieldId(ri,ai));
+          if (f){ f.value = v; f.classList.add('done'); colorField(f); }
+        });
+      });
+    }
+    updateAllRoundSums();
+    show('new');
+  };
+};
+
+$('btnBackHome').onclick = () => { show('home'); renderHome(); };
+$('btnDelete').onclick = () => {
+  if (!confirm('Deze sessie verwijderen?')) return;
+  sessions = sessions.filter(s=>s.id!==detailId);
+  saveLS(); show('home'); renderHome();
+};
+
+function setDistFilter(f){
+  distFilter = f;
+  $('btnDistAll').className = f === 'alles' ? 'on' : '';
+  $('btnDistTrain').className = f === 'training' ? 'on' : '';
+  $('btnDistMatch').className = f === 'wedstrijd' ? 'on' : '';
+  renderDistribution();
+}
+
+function renderDistribution(){
+  let set = sessions;
+  if (distFilter !== 'alles') set = set.filter(s => s.type === distFilter);
+  if (!set.length){ $('arrowDistribution').innerHTML = '<div class="empty">Geen data.</div>'; return; }
+
+  const counts = { 'X': 0, '10': 0, '9': 0, '8': 0, '7': 0, '6': 0, '5': 0, '4': 0, '3': 0, '2': 0, '1': 0, 'M': 0 };
+  let totalCount = 0;
+  set.forEach(s => {
+    if (!s.rounds) return;
+    s.rounds.flat().forEach(val => {
+      if (val === null || val === undefined || val === '') return;
+      totalCount++;
+      const str = String(val).toUpperCase();
+      if (str === 'X') counts['X']++;
+      else if (counts[str] !== undefined) counts[str]++;
+      else counts['M']++;
+    });
+  });
+
+  const order = ['X', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1', 'M'];
+  const maxHit = Math.max(...Object.values(counts), 1);
+  $('arrowDistribution').innerHTML = order.map(k => {
+    const hits = counts[k];
+    const pct = totalCount ? ((hits / totalCount) * 100).toFixed(1) : 0;
+    return `
+    <div class="distrib-row">
+      <div class="distrib-badge bg-${scoreClass(k).replace('c-','')}">${k}</div>
+      <div class="distrib-bar-container">
+        <div class="distrib-info"><span><b>${hits}x</b> in de ${k}</span><span>${pct}%</span></div>
+        <div class="distrib-bar-wrap"><div class="distrib-bar" style="width:${(hits/maxHit)*100}%; background:var(--accent);"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ---------------- STATS VIEW (FOUTTOLERANT) ----------------
+function renderStats(){
+  if (!sessions || !sessions.length){ 
+    $('typeComparison').innerHTML = '<div class="empty">Nog geen data beschikbaar.</div>'; 
+    $('arrowDistribution').innerHTML = '<div class="empty">Nog geen data beschikbaar.</div>'; 
+    $('statsContent').innerHTML = '<div class="empty">Nog geen data beschikbaar.</div>'; 
+    return; 
+  }
+
+  try {
+    const train = sessions.filter(s => s.type === 'training');
+    const match = sessions.filter(s => s.type === 'wedstrijd');
+    const stT = calcStats(train);
+    const stM = calcStats(match);
+
+    // 1. Vergelijkingstabel Training vs Wedstrijd
+    $('typeComparison').innerHTML = `
+    <table class="comp-table">
+      <thead><tr><th>Statistiek</th><th class="c-t">🎯 Training</th><th class="c-m">🏆 Wedstrijd</th></tr></thead>
+      <tbody>
+        <tr><td>Aantal sessies</td><td><b>${stT.count}</b></td><td><b>${stM.count}</b></td></tr>
+        <tr><td>Pijlen totaal</td><td>${stT.arrows}</td><td>${stM.arrows}</td></tr>
+        <tr><td>PR (Hoogste score)</td><td class="c-t">${stT.pr}</td><td class="c-m">${stM.pr}</td></tr>
+        <tr><td>Gem. sessiescore</td><td class="c-t">${stT.avgTot}</td><td class="c-m">${stM.avgTot}</td></tr>
+        <tr><td>Gem. per pijl</td><td class="c-t">${stT.avgP !== '–' ? stT.avgP + ' p/p' : '–'}</td><td class="c-m">${stM.avgP !== '–' ? stM.avgP + ' p/p' : '–'}</td></tr>
+        <tr><td>Score percentage</td><td>${stT.perc !== '–' ? stT.perc + '%' : '–'}</td><td>${stM.perc !== '–' ? stM.perc + '%' : '–'}</td></tr>
+        <tr><td>Aantal X-en</td><td>${stT.x} (${stT.xPerc}%)</td><td>${stM.x} (${stM.xPerc}%)</td></tr>
+      </tbody>
+    </table>`;
+
+    // 2. Schotverdeling
+    renderDistribution();
+
+    // 3. Algemene Statistieken (veilig berekend tegen ontbrekende data)
+    const validScores = sessions.map(s => Number(s.total) || 0);
+    const totalArrows = sessions.reduce((a, s) => a + (Number(s.totalArrows) || (s.rounds ? s.rounds.flat().length : 0)), 0);
+    const totalScore = validScores.reduce((a, b) => a + b, 0);
+    const totalX = sessions.reduce((a, s) => a + (Number(s.xCount) || (s.rounds ? s.rounds.flat().filter(v => String(v).toUpperCase() === 'X').length : 0)), 0);
+    
+    const overallAvgPijl = totalArrows ? (totalScore / totalArrows).toFixed(2) : '0.00';
+    const xPerc = totalArrows ? ((totalX / totalArrows) * 100).toFixed(1) : '0.0';
+    const prScore = validScores.length ? Math.max(...validScores) : 0;
+
+    let html = `
+    <div class="detail-row"><span>Sessies totaal</span><b>${sessions.length}</b></div>
+    <div class="detail-row"><span>Pijlen geschoten</span><b>${totalArrows}</b></div>
+    <div class="detail-row"><span>Gemiddelde per pijl (totaal)</span><b style="color:var(--accent);">${overallAvgPijl} p/p</b></div>
+    <div class="detail-row"><span>Totaal aantal X-en</span><b style="color:var(--accent2);">${totalX} (${xPerc}%)</b></div>
+    <div class="detail-row"><span>Persoonlijk record</span><b style="color:var(--green);">${prScore} pts</b></div>`;
+
+    const validDateSessions = sessions.slice().filter(s => s && s.date).sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    const last10 = validDateSessions.slice(-10);
+
+    if (last10.length > 0){
+      html += `<h2 style="margin-top:18px; margin-bottom:10px;">Laatste ${last10.length} sessies (gem. per pijl)</h2>`;
+      html += last10.map(s => {
+        const pCount = Number(s.totalArrows) || (s.rounds ? s.rounds.flat().length : 30);
+        const pAvg = pCount ? (Number(s.total || 0) / pCount).toFixed(2) : '0.00';
+        const isM = s.type === 'wedstrijd';
+        const barWidth = Math.min(Math.max((Number(pAvg) / 10) * 100, 0), 100);
+
+        return `<div style="margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-bottom:2px;">
+            <span>${fmtDate(s.date)} <b style="color:${isM ? 'var(--accent2)' : 'var(--green)'};">(${isM ? 'Wedstrijd' : 'Training'})</b></span>
+            <span style="font-weight:700; color:var(--text);">${pAvg} p/p (${s.total || 0} pts)</span>
+          </div>
+          <div class="bar-wrap"><div class="bar" style="width:${barWidth}%; background:${isM ? 'var(--accent2)' : 'var(--green)'};"></div></div>
+        </div>`;
+      }).join('');
+    }
+
+    $('statsContent').innerHTML = html;
+  } catch (err) {
+    $('statsContent').innerHTML = `<div style="color:var(--red); padding:10px; font-size:13px;">Fout bij weergeven statistieken: ${err.message}</div>`;
+  }
+
+  updateBackupStatus();
+}
+
+// ---------------- PROFIEL VIEW ----------------
+function loadProfile(){
+  const p = JSON.parse(localStorage.getItem(LS_PROFILE_KEY) || '{}');
+  $('profName').value = p.name || '';
+  $('profId').value = p.id || '';
+  $('profClub').value = p.club || '';
+  if (p.discipline) $('profDiscipline').value = p.discipline;
+  $('profPoundage').value = p.poundage || '';
+  $('profNotes').value = p.notes || '';
+
+  const savedPass = localStorage.getItem(LS_PASS_KEY);
+  if (savedPass){
+    $('passImg').src = savedPass;
+    $('passImg').classList.remove('hidden');
+    $('passPlaceholder').classList.add('hidden');
+    $('passActions').classList.remove('hidden');
+  } else {
+    $('passImg').src = '';
+    $('passImg').classList.add('hidden');
+    $('passPlaceholder').classList.remove('hidden');
+    $('passActions').classList.add('hidden');
+  }
+}
+
+$('btnSaveProfile').onclick = () => {
+  const p = {
+    name: $('profName').value.trim(),
+    id: $('profId').value.trim(),
+    club: $('profClub').value.trim(),
+    discipline: $('profDiscipline').value,
+    poundage: $('profPoundage').value.trim(),
+    notes: $('profNotes').value.trim()
+  };
+  localStorage.setItem(LS_PROFILE_KEY, JSON.stringify(p));
+  alert('Profiel opgeslagen! ✅');
+};
+
+$('passContainer').onclick = () => {
+  const savedPass = localStorage.getItem(LS_PASS_KEY);
+  if (savedPass) { $('lightboxImg').src = savedPass; $('lightboxOverlay').classList.remove('hidden'); }
+  else { $('inpPassFile').click(); }
+};
+$('lightboxOverlay').onclick = () => $('lightboxOverlay').classList.add('hidden');
+$('btnChangePass').onclick = (e) => { e.stopPropagation(); $('inpPassFile').click(); };
+$('btnRemovePass').onclick = (e) => {
+  e.stopPropagation();
+  if (confirm('Foto verwijderen?')) { localStorage.removeItem(LS_PASS_KEY); loadProfile(); }
+};
+
+$('inpPassFile').onchange = e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    localStorage.setItem(LS_PASS_KEY, ev.target.result);
+    loadProfile();
+  };
+  reader.readAsDataURL(file);
+};
+
+// ---------------- EXPORT / IMPORT (WERKEND OP ANDROID & DESKTOP) ----------------
+$('btnExport').onclick = async () => {
+  try {
+    const backupData = {
+      sessions: sessions,
+      profile: JSON.parse(localStorage.getItem(LS_PROFILE_KEY) || '{}'),
+      pass: localStorage.getItem(LS_PASS_KEY) || null
+    };
+    const jsonStr = JSON.stringify(backupData, null, 2);
+    const defaultName = `boogschiet_backup_${new Date().toISOString().slice(0,10)}.json`;
+
+    // 1. Android: Probeer eerst als bestand te delen via Web Share API
+    if (navigator.share) {
+      try {
+        const fileObj = new File([jsonStr], defaultName, { type: 'application/json' });
+        if (navigator.canShare && navigator.canShare({ files: [fileObj] })) {
+          await navigator.share({
+            title: 'Boogschiet Tracker Backup',
+            files: [fileObj]
+          });
+          localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
+          updateBackupStatus();
+          return;
+        }
+      } catch (e) {
+        console.warn('Bestand delen niet ondersteund, val terug op tekst delen:', e);
+      }
+
+      // 2. Android WebView Fallback: Deel als tekst (werkt altijd in mobiele apps)
+      try {
+        await navigator.share({
+          title: 'Boogschiet Tracker Backup',
+          text: jsonStr
+        });
+        localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
+        updateBackupStatus();
+        return;
+      } catch (err) {
+        if (err.name === 'AbortError') return; // Gebruiker klikte zelf weg
+      }
+    }
+
+    // 3. Desktop Edge / Chrome: File System Access API
+    if ('showSaveFilePicker' in window) {
+      try {
+        const lastHandle = await getLastHandle();
+        const pickerOptions = {
+          suggestedName: defaultName,
+          types: [{
+            description: 'JSON Backup Bestand',
+            accept: { 'application/json': ['.json'] }
+          }]
+        };
+        if (lastHandle) pickerOptions.startIn = lastHandle;
+
+        const fileHandle = await window.showSaveFilePicker(pickerOptions);
+        const writable = await fileHandle.createWritable();
+        await writable.write(jsonStr);
+        await writable.close();
+        await saveLastHandle(fileHandle);
+
+        localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
+        updateBackupStatus();
+        alert('Backup succesvol opgeslagen! ✅');
+        return;
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+      }
+    }
+
+    // 4. Desktop Fallback: Traditionele downloadlink
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = defaultName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
+    updateBackupStatus();
+
+  } catch (globalErr) {
+    alert('Fout bij exporteren: ' + globalErr.message);
+  }
+};
+
+$('btnImportTrigger').onclick = async () => {
+  if ('showOpenFilePicker' in window) {
+    try {
+      const lastHandle = await getLastHandle();
+      const pickerOptions = {
+        multiple: false,
+        types: [{
+          description: 'JSON Backup Bestand',
+          accept: { 'application/json': ['.json'] }
+        }]
+      };
+      if (lastHandle) {
+        pickerOptions.startIn = lastHandle;
+      }
+
+      const [fileHandle] = await window.showOpenFilePicker(pickerOptions);
+      const file = await fileHandle.getFile();
+      const text = await file.text();
+      processImportData(text);
+
+      await saveLastHandle(fileHandle);
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+      console.warn('FilePicker mislukt, val terug op bestandsinput:', err);
+    }
+  }
+
+  $('inpImport').click();
+};
+
+$('inpImport').onchange = e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => processImportData(ev.target.result);
+  reader.readAsText(file);
+};
+
+function processImportData(rawJson) {
+  try {
+    const data = JSON.parse(rawJson);
+    if (data && data.sessions) {
+      if (confirm(`Backup gevonden met ${data.sessions.length} sessies. Wil je deze herstellen?`)) {
+        const ids = new Set(sessions.map(s => s.id));
+        data.sessions.forEach(item => { if (!ids.has(item.id)) sessions.push(item); });
+        saveLS();
+
+        if (data.profile) localStorage.setItem(LS_PROFILE_KEY, JSON.stringify(data.profile));
+        if (data.pass) localStorage.setItem(LS_PASS_KEY, data.pass);
+
+        loadProfile();
+        renderHome();
+        renderStats();
+        alert('Backup succesvol hersteld! ✅');
+      }
+    } else if (Array.isArray(data)) {
+      if (confirm(`Wil je ${data.length} sessies importeren?`)) {
+        const ids = new Set(sessions.map(s => s.id));
+        data.forEach(item => { if (!ids.has(item.id)) sessions.push(item); });
+        saveLS(); renderHome(); renderStats();
+        alert('Sessies succesvol geïmporteerd! ✅');
+      }
+    } else {
+      alert('Ongeldig databestand.');
+    }
+  } catch (err) {
+    alert('Fout bij inlezen van backup-bestand.');
+  }
+}
+
+// ---------------- NAVIGATIE & OPSTARTEN ----------------
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+  const view = b.dataset.view;
+  if (view === 'new') { $('modalTypePrompt').classList.remove('hidden'); return; }
+  if (view === 'stats') renderStats();
+  if (view === 'home') renderHome();
+  if (view === 'profile') loadProfile();
+  show(view);
+});
+
+document.querySelectorAll('.filter-row button[data-f]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.filter-row button[data-f]').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); 
+  filter = b.dataset.f; 
+  renderHome();
+});
+
+// Start de app veilig op
+resetNew('training'); 
+renderHome();
+loadProfile();
+updateBackupStatus();
+// Service Worker registratie voor PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('PWA Service Worker actief'))
+      .catch(err => console.log('Service Worker registratie overgeslagen (vereist HTTP/HTTPS server)'));
+  });
+}
+</script>
+</body>
+</html>

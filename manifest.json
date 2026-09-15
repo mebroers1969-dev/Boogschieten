@@ -1,0 +1,16 @@
+{
+  "name": "Boogschiet Tracker",
+  "short_name": "Boogschieten",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e3a5f",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%231e293b'/><circle cx='96' cy='96' r='75' fill='%230f172a' stroke='%23334155' stroke-width='4'/><circle cx='96' cy='96' r='58' fill='%232563eb'/><circle cx='96' cy='96' r='40' fill='%23dc2626'/><circle cx='96' cy='96' r='22' fill='%23eab308'/><circle cx='96' cy='96' r='8' fill='%23fef08a'/></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
