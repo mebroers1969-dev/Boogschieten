@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#1e3a5f">
 <title>Boogschiet Tracker</title>
-<!-- Startscherm-icoon voor mobiele browsers (Android & iOS) -->
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='38' fill='%231e293b'/><circle cx='96' cy='96' r='76' fill='%230f172a' stroke='%23334155' stroke-width='4'/><circle cx='96' cy='96' r='58' fill='%232563eb'/><circle cx='96' cy='96' r='40' fill='%23dc2626'/><circle cx='96' cy='96' r='22' fill='%23eab308'/><circle cx='96' cy='96' r='8' fill='%23fef08a'/></svg>">
-<link rel="icon" sizes="192x192" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='38' fill='%231e293b'/><circle cx='96' cy='96' r='76' fill='%230f172a' stroke='%23334155' stroke-width='4'/><circle cx='96' cy='96' r='58' fill='%232563eb'/><circle cx='96' cy='96' r='40' fill='%23dc2626'/><circle cx='96' cy='96' r='22' fill='%23eab308'/><circle cx='96' cy='96' r='8' fill='%23fef08a'/></svg>"><style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<style>
  :root{
- --bg:#0f172a; --card:#1e293b; --card2:#263548; --text:#e2e8f0;
- --muted:#94a3b8; --accent:#38bdf8; --accent2:#f59e0b; --green:#34d399;
- --red:#f87171; --radius:14px;
- --nav-height: 56px;
+   --bg:#0f172a; --card:#1e293b; --card2:#263548; --text:#e2e8f0;
+   --muted:#94a3b8; --accent:#38bdf8; --accent2:#f59e0b; --green:#34d399;
+   --red:#f87171; --radius:14px;
+   --nav-height: 56px;
  }
  *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; background:var(--bg); color:var(--text); min-height:100vh;}
@@ -28,7 +23,7 @@
  .container{max-width:560px; margin:0 auto; padding:16px;}
  
  #view-home, #view-stats, #view-detail, #view-profile{padding-bottom:calc(var(--nav-height) + 40px + env(safe-area-inset-bottom));}
- #view-new{padding-bottom:calc(var(--nav-height) + 380px + env(safe-area-inset-bottom));}
+ #view-new{padding-bottom:calc(var(--nav-height) + 330px + env(safe-area-inset-bottom));}
 
  .card{background:var(--card); border-radius:var(--radius); padding:16px; margin-bottom:14px;}
  .hidden{display:none !important;}
@@ -49,7 +44,7 @@
  .round-block.current{outline:2px solid #0284c7;}
  .round-block .round-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
  .round-block .round-head span{font-size:14px; font-weight:700; color:var(--muted);}
- .round-block .round-head b{color:var(--green); font-size:14px;}
+ .round-block .round-head b{color:var(--green); font-size:13px;}
  .round-block .round-head b.full{color:var(--accent2);}
  .arrows{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
  .arrows input{text-align:center; padding:12px 4px; font-size:20px; font-weight:800; cursor:pointer;}
@@ -118,8 +113,9 @@
  nav button .ico{font-size:20px;}
  nav button.active{color:var(--accent);}
  
- .numpad{position:fixed; bottom:calc(var(--nav-height) + env(safe-area-inset-bottom)); left:0; right:0; background:var(--card); padding:8px 12px 10px; box-shadow:0 -4px 20px rgba(0,0,0,.7); z-index:25; display:grid; grid-template-columns:repeat(4,1fr); gap:8px; max-width:560px; margin:0 auto; border-top:1px solid #334155;}
- .numpad button{border:none; border-radius:12px; padding:12px 0; font-size:20px; font-weight:800; cursor:pointer; color:#fff; box-shadow:0 2px 4px rgba(0,0,0,.3);}
+ /* Compact cijferblok */
+ .numpad{position:fixed; bottom:calc(var(--nav-height) + env(safe-area-inset-bottom)); left:0; right:0; background:var(--card); padding:6px 10px 6px; box-shadow:0 -4px 20px rgba(0,0,0,.7); z-index:25; display:grid; grid-template-columns:repeat(4,1fr); gap:6px; max-width:560px; margin:0 auto; border-top:1px solid #334155;}
+ .numpad button{border:none; border-radius:10px; padding:7px 0; font-size:17px; font-weight:800; cursor:pointer; color:#fff; box-shadow:0 2px 4px rgba(0,0,0,.3);}
  .numpad button:active{transform:scale(.93);}
  .b-gold{background:#eab308; color:#422006 !important;}
  .b-red{background:#dc2626;}
@@ -127,7 +123,7 @@
  .b-black{background:#475569;}
  .b-white{background:#94a3b8; color:#0f172a !important;}
  .b-miss{background:#1e293b; border:1px solid #475569; color:#cbd5e1 !important;}
- .b-back{background:#334155; font-size:18px;}
+ .b-back{background:#334155; font-size:16px;}
 
  .modal-overlay{position:fixed; inset:0; background:rgba(15,23,42,0.85); z-index:50; display:flex; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(4px);}
  .modal-box{background:var(--card); border:1px solid #334155; border-radius:var(--radius); padding:24px 20px; width:100%; max-width:380px; box-shadow:0 10px 30px rgba(0,0,0,0.5); text-align:center;}
@@ -160,136 +156,136 @@
 <div class="container">
  <!-- HOME VIEW -->
  <div id="view-home">
- <div class="stats-grid" id="homeStats"></div>
- <h2 style="margin-top:20px;">Recente sessies</h2>
- <div class="filter-row">
- <button class="on" data-f="alles">Alles</button>
- <button data-f="training">Training</button>
- <button data-f="wedstrijd">Wedstrijd</button>
- </div>
- <div id="sessionList"></div>
+   <div class="stats-grid" id="homeStats"></div>
+   <h2 style="margin-top:20px;">Recente sessies</h2>
+   <div class="filter-row">
+     <button class="on" data-f="alles">Alles</button>
+     <button data-f="training">Training</button>
+     <button data-f="wedstrijd">Wedstrijd</button>
+   </div>
+   <div id="sessionList"></div>
  </div>
 
  <!-- NIEUWE SESSIE VIEW -->
  <div id="view-new" class="hidden">
- <button class="btn btn-secondary" id="btnToggleInfo" style="margin-top:0;">⚙️ Sessiegegevens (datum, type, afstand...) ▾</button>
- <div id="infoCard" class="card hidden" style="margin-top:12px;">
- <h2>Sessiegegevens</h2>
- <label>Type sessie</label>
- <div class="seg" id="typeSeg">
- <button id="btnTrain" class="active-train">🎯 Training</button>
- <button id="btnMatch">🏆 Wedstrijd</button>
- </div>
- <label for="inpDate">Datum</label>
- <input type="date" id="inpDate">
- <label for="inpDist">Afstand (meter)</label>
- <input type="number" id="inpDist" value="18" min="1" max="90">
- <label for="inpBow">Discipline</label>
- <select id="inpBow">
- <option>Recurve</option>
- <option>Compound</option>
- <option>Barebow</option>
- <option>Traditioneel</option>
- <option>Longbow</option>
- </select>
- <label for="inpNote">Notitie (optioneel)</label>
- <textarea id="inpNote" rows="2" placeholder="bijv. vizierinstelling, wind..."></textarea>
- </div>
+   <button class="btn btn-secondary" id="btnToggleInfo" style="margin-top:0;">⚙️ Sessiegegevens (datum, type, afstand...) ▾</button>
+   <div id="infoCard" class="card hidden" style="margin-top:12px;">
+     <h2>Sessiegegevens</h2>
+     <label>Type sessie</label>
+     <div class="seg" id="typeSeg">
+       <button id="btnTrain" class="active-train">🎯 Training</button>
+       <button id="btnMatch">🏆 Wedstrijd</button>
+     </div>
+     <label for="inpDate">Datum</label>
+     <input type="date" id="inpDate">
+     <label for="inpDist">Afstand (meter)</label>
+     <input type="number" id="inpDist" value="18" min="1" max="90">
+     <label for="inpBow">Discipline</label>
+     <select id="inpBow">
+       <option>Recurve</option>
+       <option>Compound</option>
+       <option>Barebow</option>
+       <option>Traditioneel</option>
+       <option>Longbow</option>
+     </select>
+     <label for="inpNote">Notitie (optioneel)</label>
+     <textarea id="inpNote" rows="2" placeholder="bijv. vizierinstelling, wind, knopspanning..."></textarea>
+   </div>
 
- <div class="card">
- <h2>Score — 10 ronden à 3 pijlen</h2>
- <div id="roundsForm"></div>
- </div>
+   <div class="card">
+     <h2>Score — 10 ronden à 3 pijlen</h2>
+     <div id="roundsForm"></div>
+   </div>
  </div>
 
  <!-- DETAIL VIEW -->
  <div id="view-detail" class="hidden">
- <div class="card" id="detailCard"></div>
- <button class="btn btn-secondary" id="btnBackHome">🏠 Terug naar Home</button>
- <button class="btn btn-danger" id="btnDelete">🗑️ Sessie verwijderen</button>
+   <div class="card" id="detailCard"></div>
+   <button class="btn btn-secondary" id="btnBackHome">🏠 Terug naar Home</button>
+   <button class="btn btn-danger" id="btnDelete">🗑️ Sessie verwijderen</button>
  </div>
 
  <!-- STATISTIEKEN VIEW -->
  <div id="view-stats" class="hidden">
- <div class="card">
- <h2>Vergelijking: Training vs. Wedstrijd</h2>
- <div id="typeComparison"></div>
- </div>
+   <div class="card">
+     <h2>Vergelijking: Training vs. Wedstrijd</h2>
+     <div id="typeComparison"></div>
+   </div>
 
- <div class="card">
- <h2>Pijldistributie (schotverdeling)</h2>
- <div class="filter-row" style="margin-bottom:12px;">
- <button class="on" id="btnDistAll" onclick="setDistFilter('alles')">Alles</button>
- <button id="btnDistTrain" onclick="setDistFilter('training')">Training</button>
- <button id="btnDistMatch" onclick="setDistFilter('wedstrijd')">Wedstrijd</button>
- </div>
- <div id="arrowDistribution"></div>
- </div>
+   <div class="card">
+     <h2>Pijldistributie (schotverdeling)</h2>
+     <div class="filter-row" style="margin-bottom:12px;">
+       <button class="on" id="btnDistAll" onclick="setDistFilter('alles')">Alles</button>
+       <button id="btnDistTrain" onclick="setDistFilter('training')">Training</button>
+       <button id="btnDistMatch" onclick="setDistFilter('wedstrijd')">Wedstrijd</button>
+     </div>
+     <div id="arrowDistribution"></div>
+   </div>
 
- <div class="card">
- <h2>Algemene Statistieken</h2>
- <div id="statsContent"></div>
- </div>
- 
- <div class="card">
- <h2>Gegevensbeheer</h2>
- <button class="btn btn-secondary" id="btnExport" style="margin-top:0;">📥 Exporteer backup (Kies map)</button>
- <input type="file" id="inpImport" accept=".json" class="hidden">
- <button class="btn btn-secondary" id="btnImportTrigger" style="margin-top:8px;">📤 Importeer backup</button>
- <div id="lastBackupInfo" style="font-size:12px; color:var(--muted); margin-top:8px; text-align:center;"></div>
- </div>
+   <div class="card">
+     <h2>Algemene Statistieken</h2>
+     <div id="statsContent"></div>
+   </div>
+   
+   <div class="card">
+     <h2>Gegevensbeheer</h2>
+     <button class="btn btn-secondary" id="btnExport" style="margin-top:0;">📥 Exporteer backup (Opslaan / Delen)</button>
+     <input type="file" id="inpImport" accept=".json" class="hidden">
+     <button class="btn btn-secondary" id="btnImportTrigger" style="margin-top:8px;">📤 Importeer backup</button>
+     <div id="lastBackupInfo" style="font-size:12px; color:var(--muted); margin-top:8px; text-align:center;"></div>
+   </div>
  </div>
 
  <!-- PROFIEL VIEW -->
  <div id="view-profile" class="hidden">
- <div class="card">
- <h2>🪪 Bondspas</h2>
- <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Tik op de foto om deze groot weer te geven.</p>
- 
- <div class="card-preview-container" id="passContainer">
- <div class="card-placeholder" id="passPlaceholder">
- <span>📷</span>
- <b>Tik om foto van je bondspas te uploaden</b>
- </div>
- <img id="passImg" class="card-preview-img hidden" alt="Bondspas">
- </div>
- 
- <input type="file" id="inpPassFile" accept="image/*" class="hidden">
- 
- <div id="passActions" class="hidden" style="display:flex; gap:8px; margin-top:10px;">
- <button class="btn btn-secondary" id="btnChangePass" style="flex:1; margin-top:0; font-size:14px; padding:10px;">🔄 Wijzigen</button>
- <button class="btn btn-danger" id="btnRemovePass" style="flex:1; margin-top:0; font-size:14px; padding:10px;">🗑️ Verwijderen</button>
- </div>
- </div>
+   <div class="card">
+     <h2>🪪 Bondspas</h2>
+     <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Tik op de foto om deze groot weer te geven.</p>
+     
+     <div class="card-preview-container" id="passContainer">
+       <div class="card-placeholder" id="passPlaceholder">
+         <span>📷</span>
+         <b>Tik om foto van je bondspas te uploaden</b>
+       </div>
+       <img id="passImg" class="card-preview-img hidden" alt="Bondspas">
+     </div>
+     
+     <input type="file" id="inpPassFile" accept="image/*" class="hidden">
+     
+     <div id="passActions" class="hidden" style="display:flex; gap:8px; margin-top:10px;">
+       <button class="btn btn-secondary" id="btnChangePass" style="flex:1; margin-top:0; font-size:14px; padding:10px;">🔄 Wijzigen</button>
+       <button class="btn btn-danger" id="btnRemovePass" style="flex:1; margin-top:0; font-size:14px; padding:10px;">🗑️ Verwijderen</button>
+     </div>
+   </div>
 
- <div class="card">
- <h2>Schuttersgegevens</h2>
- <label for="profName">Volledige naam</label>
- <input type="text" id="profName">
+   <div class="card">
+     <h2>Schuttersgegevens</h2>
+     <label for="profName">Volledige naam</label>
+     <input type="text" id="profName">
 
- <label for="profId">Bondsnummer / Lidnummer</label>
- <input type="text" id="profId">
+     <label for="profId">Bondsnummer / Lidnummer</label>
+     <input type="text" id="profId">
 
- <label for="profClub">Vereniging</label>
- <input type="text" id="profClub">
+     <label for="profClub">Vereniging</label>
+     <input type="text" id="profClub">
 
- <label for="profDiscipline">Standaard discipline</label>
- <select id="profDiscipline">
- <option>Recurve</option>
- <option>Compound</option>
- <option>Barebow</option>
- <option>Traditioneel</option>
- <option>Longbow</option>
- </select>
+     <label for="profDiscipline">Standaard discipline</label>
+     <select id="profDiscipline">
+       <option>Recurve</option>
+       <option>Compound</option>
+       <option>Barebow</option>
+       <option>Traditioneel</option>
+       <option>Longbow</option>
+     </select>
 
- <label for="profPoundage">Trekgewicht (lbs)</label>
- <input type="text" id="profPoundage">
+     <label for="profPoundage">Trekgewicht (lbs)</label>
+     <input type="text" id="profPoundage">
 
- <label for="profNotes">Boogopstelling & Notities</label>
- <textarea id="profNotes" rows="3"></textarea>
+     <label for="profNotes">Boogopstelling & Notities</label>
+     <textarea id="profNotes" rows="3"></textarea>
 
- <button class="btn" id="btnSaveProfile" style="margin-top:16px;">💾 Gegevens opslaan</button>
- </div>
+     <button class="btn" id="btnSaveProfile" style="margin-top:16px;">💾 Gegevens opslaan</button>
+   </div>
  </div>
 </div>
 
@@ -301,38 +297,38 @@
  <button data-view="profile"><span class="ico">👤</span>Profiel</button>
 </nav>
 
-<!-- LIGHTBOX VOOR PAS -->
+<!-- LIGHTBOX VOOR BONDSPAS -->
 <div id="lightboxOverlay" class="lightbox-overlay hidden">
  <img id="lightboxImg" class="lightbox-img" alt="Bondspas vergroot">
  <div class="lightbox-hint">Tik op het scherm om te sluiten</div>
 </div>
 
-<!-- MODAL VOOR KEUZE NIEUWE SESSIE -->
+<!-- MODAL SESSIE KEUZE -->
 <div id="modalTypePrompt" class="modal-overlay hidden">
  <div class="modal-box">
- <h2>Nieuwe sessie</h2>
- <p>Wat voor sessie wil je registreren?</p>
- <button class="modal-choice-btn modal-choice-train" id="btnChooseTrain">🎯 Training</button>
- <button class="modal-choice-btn modal-choice-match" id="btnChooseMatch">🏆 Wedstrijd</button>
- <button class="modal-btn-cancel" id="btnCancelModal">Annuleren</button>
+   <h2>Nieuwe sessie</h2>
+   <p>Wat voor sessie wil je registreren?</p>
+   <button class="modal-choice-btn modal-choice-train" id="btnChooseTrain">🎯 Training</button>
+   <button class="modal-choice-btn modal-choice-match" id="btnChooseMatch">🏆 Wedstrijd</button>
+   <button class="modal-btn-cancel" id="btnCancelModal">Annuleren</button>
  </div>
 </div>
 
-<!-- CIJFERBLOK -->
+<!-- CIJFERBLOK (COMPACT & VAN HOOG NAAR LAAG) -->
 <div id="numpad" class="numpad hidden">
- <button class="b-miss" data-v="M">M</button>
- <button class="b-white" data-v="1">1</button>
- <button class="b-white" data-v="2">2</button>
- <button class="b-black" data-v="3">3</button>
- <button class="b-black" data-v="4">4</button>
- <button class="b-blue" data-v="5">5</button>
- <button class="b-blue" data-v="6">6</button>
- <button class="b-red" data-v="7">7</button>
- <button class="b-red" data-v="8">8</button>
- <button class="b-gold" data-v="9">9</button>
- <button class="b-gold" data-v="10">10</button>
  <button class="b-gold" data-v="X" style="font-weight:900;">X</button>
- <button class="b-back" id="btnBack" style="grid-column: span 4;">⌫ Wis pijl</button>
+ <button class="b-gold" data-v="10">10</button>
+ <button class="b-gold" data-v="9">9</button>
+ <button class="b-red" data-v="8">8</button>
+ <button class="b-red" data-v="7">7</button>
+ <button class="b-blue" data-v="6">6</button>
+ <button class="b-blue" data-v="5">5</button>
+ <button class="b-black" data-v="4">4</button>
+ <button class="b-black" data-v="3">3</button>
+ <button class="b-white" data-v="2">2</button>
+ <button class="b-white" data-v="1">1</button>
+ <button class="b-miss" data-v="M">M</button>
+ <button class="b-back" id="btnBack" style="grid-column: span 4; padding:6px 0;">⌫ Wis pijl</button>
 </div>
 
 <script>
@@ -591,9 +587,11 @@ function readRounds(){
   return rounds;
 }
 
+// ---------------- LOPEND GEMIDDELDE PER REGEL ----------------
 function updateAllRoundSums(){
   let runningTotal = 0;
   let runningMax = 0;
+  let runningArrows = 0;
 
   for (let r = 0; r < TOTAL_ROUNDS; r++){
     const vals = [];
@@ -609,7 +607,15 @@ function updateAllRoundSums(){
       const roundSum = filled.reduce((x, y) => x + valToNum(y), 0);
       runningTotal += roundSum;
       runningMax += (ARROWS_PER_ROUND * 10);
-      sumEl.textContent = r === 0 ? `${roundSum} / 30` : `${roundSum}/30 · Totaal: ${runningTotal}/${runningMax}`;
+      runningArrows += ARROWS_PER_ROUND;
+
+      const runningAvg = (runningTotal / runningArrows).toFixed(2);
+
+      if (r === 0){
+        sumEl.textContent = `${roundSum}/30 (${runningAvg} p/p)`;
+      } else {
+        sumEl.textContent = `${roundSum}/30 · Totaal: ${runningTotal}/${runningMax} (${runningAvg} p/p)`;
+      }
       sumEl.className = 'full';
     } else if (filled.length > 0){
       const roundSum = filled.reduce((x, y) => x + valToNum(y), 0);
@@ -850,7 +856,7 @@ function renderStats(){
     // 2. Schotverdeling
     renderDistribution();
 
-    // 3. Algemene Statistieken (veilig berekend tegen ontbrekende data)
+    // 3. Algemene Statistieken
     const validScores = sessions.map(s => Number(s.total) || 0);
     const totalArrows = sessions.reduce((a, s) => a + (Number(s.totalArrows) || (s.rounds ? s.rounds.flat().length : 0)), 0);
     const totalScore = validScores.reduce((a, b) => a + b, 0);
@@ -956,90 +962,76 @@ $('inpPassFile').onchange = e => {
   reader.readAsDataURL(file);
 };
 
-// ---------------- EXPORT / IMPORT (WERKEND OP ANDROID & DESKTOP) ----------------
+// ---------------- EXPORT / IMPORT (HYBRIDE: WEB SHARE / EDGE PICKER / DOWNLOAD) ----------------
 $('btnExport').onclick = async () => {
-  try {
-    const backupData = {
-      sessions: sessions,
-      profile: JSON.parse(localStorage.getItem(LS_PROFILE_KEY) || '{}'),
-      pass: localStorage.getItem(LS_PASS_KEY) || null
-    };
-    const jsonStr = JSON.stringify(backupData, null, 2);
-    const defaultName = `boogschiet_backup_${new Date().toISOString().slice(0,10)}.json`;
+  const backupData = {
+    sessions: sessions,
+    profile: JSON.parse(localStorage.getItem(LS_PROFILE_KEY) || '{}'),
+    pass: localStorage.getItem(LS_PASS_KEY) || null
+  };
+  const jsonStr = JSON.stringify(backupData, null, 2);
+  const defaultName = `boogschiet_backup_${new Date().toISOString().slice(0,10)}.json`;
 
-    // 1. Android: Probeer eerst als bestand te delen via Web Share API
-    if (navigator.share) {
-      try {
-        const fileObj = new File([jsonStr], defaultName, { type: 'application/json' });
-        if (navigator.canShare && navigator.canShare({ files: [fileObj] })) {
-          await navigator.share({
-            title: 'Boogschiet Tracker Backup',
-            files: [fileObj]
-          });
-          localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
-          updateBackupStatus();
-          return;
-        }
-      } catch (e) {
-        console.warn('Bestand delen niet ondersteund, val terug op tekst delen:', e);
+  // 1. Probeer op desktop de native Edge/Chrome bestandskiezer
+  if ('showSaveFilePicker' in window) {
+    try {
+      const lastHandle = await getLastHandle();
+      const pickerOptions = {
+        suggestedName: defaultName,
+        types: [{
+          description: 'JSON Backup Bestand',
+          accept: { 'application/json': ['.json'] }
+        }]
+      };
+      if (lastHandle) {
+        pickerOptions.startIn = lastHandle;
       }
 
-      // 2. Android WebView Fallback: Deel als tekst (werkt altijd in mobiele apps)
-      try {
-        await navigator.share({
-          title: 'Boogschiet Tracker Backup',
-          text: jsonStr
-        });
-        localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
-        updateBackupStatus();
-        return;
-      } catch (err) {
-        if (err.name === 'AbortError') return; // Gebruiker klikte zelf weg
-      }
+      const fileHandle = await window.showSaveFilePicker(pickerOptions);
+      const writable = await fileHandle.createWritable();
+      await writable.write(jsonStr);
+      await writable.close();
+
+      await saveLastHandle(fileHandle);
+
+      localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
+      updateBackupStatus();
+      alert('Backup succesvol opgeslagen in de gekozen map! ✅');
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+      console.warn('FilePicker niet gelukt of afgebroken, val terug op andere methoden:', err);
     }
-
-    // 3. Desktop Edge / Chrome: File System Access API
-    if ('showSaveFilePicker' in window) {
-      try {
-        const lastHandle = await getLastHandle();
-        const pickerOptions = {
-          suggestedName: defaultName,
-          types: [{
-            description: 'JSON Backup Bestand',
-            accept: { 'application/json': ['.json'] }
-          }]
-        };
-        if (lastHandle) pickerOptions.startIn = lastHandle;
-
-        const fileHandle = await window.showSaveFilePicker(pickerOptions);
-        const writable = await fileHandle.createWritable();
-        await writable.write(jsonStr);
-        await writable.close();
-        await saveLastHandle(fileHandle);
-
-        localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
-        updateBackupStatus();
-        alert('Backup succesvol opgeslagen! ✅');
-        return;
-      } catch (err) {
-        if (err.name === 'AbortError') return;
-      }
-    }
-
-    // 4. Desktop Fallback: Traditionele downloadlink
-    const blob = new Blob([jsonStr], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = defaultName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
-    updateBackupStatus();
-
-  } catch (globalErr) {
-    alert('Fout bij exporteren: ' + globalErr.message);
   }
+
+  // 2. Probeer op mobiel het Android/iOS deelmenu (Web Share API voor bestanden)
+  const file = new File([jsonStr], defaultName, { type: 'application/json' });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({
+        files: [file],
+        title: 'Boogschiet Tracker Backup',
+        text: 'Backupbestand voor de Boogschiet Tracker'
+      });
+      localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
+      updateBackupStatus();
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+      console.warn('Web Share geannuleerd of niet gelukt, val terug op download:', err);
+    }
+  }
+
+  // 3. Universele fallback download
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = defaultName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
+  updateBackupStatus();
 };
 
 $('btnImportTrigger').onclick = async () => {
@@ -1066,7 +1058,7 @@ $('btnImportTrigger').onclick = async () => {
       return;
     } catch (err) {
       if (err.name === 'AbortError') return;
-      console.warn('FilePicker mislukt, val terug op bestandsinput:', err);
+      console.warn('FilePicker geannuleerd of mislukt:', err);
     }
   }
 
@@ -1130,19 +1122,10 @@ document.querySelectorAll('.filter-row button[data-f]').forEach(b => b.onclick =
   renderHome();
 });
 
-// Start de app veilig op
 resetNew('training'); 
 renderHome();
 loadProfile();
 updateBackupStatus();
-// Service Worker registratie voor PWA
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(reg => console.log('PWA Service Worker actief'))
-      .catch(err => console.log('Service Worker registratie overgeslagen (vereist HTTP/HTTPS server)'));
-  });
-}
 </script>
 </body>
 </html>
