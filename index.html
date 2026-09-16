@@ -3,47 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#1e3a5f">
+<meta name="theme-color" content="#0b1326">
 <title>Boogschiet Tracker</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
  :root{
-   --bg:#0f172a; --card:#1e293b; --card2:#263548; --text:#e2e8f0;
-   --muted:#94a3b8; --accent:#38bdf8; --accent2:#f59e0b; --green:#34d399;
-   --red:#f87171; --radius:14px;
-   --nav-height: 56px;
+   --bg:#060e20; --card:#131b2e; --card2:#1b243b; --text:#dae2fd;
+   --muted:#89929b; --accent:#38bdf8; --accent2:#fbbf24; --green:#34d399;
+   --red:#ef4444; --radius:14px; --nav-height: 60px;
  }
  *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
- body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; background:var(--bg); color:var(--text); min-height:100vh;}
- header{position:sticky; top:0; z-index:40; background:var(--card); padding:calc(12px + env(safe-area-inset-top)) 16px 12px; display:flex; align-items:center; gap:10px; box-shadow:0 2px 8px rgba(0,0,0,.4);}
+ body{font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); min-height:100vh;}
+ header{position:sticky; top:0; z-index:40; background:rgba(11,19,38,0.92); backdrop-filter:blur(10px); padding:calc(12px + env(safe-area-inset-top)) 16px 12px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,0.06);}
  header .logo{font-size:22px;}
- header h1{font-size:18px; font-weight:700; flex:1;}
- .btn-save-top{background:var(--accent); color:#082f49; border:none; border-radius:10px; padding:10px 16px; font-size:15px; font-weight:800; cursor:pointer;}
+ header h1{font-size:17px; font-weight:800; flex:1; color:#fff;}
+ .btn-save-top{background:var(--accent); color:#082f49; border:none; border-radius:10px; padding:8px 14px; font-size:13px; font-weight:800; cursor:pointer;}
  .btn-save-top:active{transform:scale(.95);}
- .container{max-width:560px; margin:0 auto; padding:16px;}
+ .container{max-width:480px; margin:0 auto; padding:16px;}
  
- #view-home, #view-stats, #view-detail, #view-profile{padding-bottom:calc(var(--nav-height) + 40px + env(safe-area-inset-bottom));}
+ #view-home, #view-stats, #view-detail, #view-profile{padding-bottom:calc(var(--nav-height) + 30px + env(safe-area-inset-bottom));}
  #view-new{padding-bottom:calc(var(--nav-height) + 330px + env(safe-area-inset-bottom));}
 
- .card{background:var(--card); border-radius:var(--radius); padding:16px; margin-bottom:14px;}
+ .card{background:var(--card); border-radius:var(--radius); padding:16px; margin-bottom:14px; border:1px solid rgba(255,255,255,0.05);}
  .hidden{display:none !important;}
- h2{font-size:16px; margin-bottom:12px; color:var(--accent);}
- label{display:block; font-size:13px; color:var(--muted); margin:12px 0 6px;}
- input,select,textarea{width:100%; padding:12px; border-radius:10px; border:1px solid #334155; background:var(--bg); color:var(--text); font-size:16px;}
+ h2{font-size:15px; margin-bottom:12px; color:var(--accent); font-weight:700;}
+ label{display:block; font-size:12px; color:var(--muted); margin:10px 0 4px; font-weight:600;}
+ input,select,textarea{width:100%; padding:10px 12px; border-radius:10px; border:1px solid #2d3449; background:#0b1326; color:var(--text); font-size:15px;}
  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); border-color:transparent;}
  .seg{display:flex; gap:8px;}
- .seg button{flex:1; padding:12px; border-radius:10px; border:2px solid #334155; background:var(--bg); color:var(--muted); font-size:15px; font-weight:600; cursor:pointer;}
- .seg button.active-train{border-color:var(--green); color:var(--green); background:rgba(52,211,153,.1);}
- .seg button.active-match{border-color:var(--accent2); color:var(--accent2); background:rgba(245,158,11,.1);}
- .btn{width:100%; padding:14px; border:none; border-radius:12px; background:var(--accent); color:#082f49; font-size:16px; font-weight:700; cursor:pointer; margin-top:12px;}
+ .seg button{flex:1; padding:10px; border-radius:10px; border:1px solid #2d3449; background:#0b1326; color:var(--muted); font-size:14px; font-weight:600; cursor:pointer;}
+ .seg button.active-train{border-color:var(--green); color:var(--green); background:rgba(52,211,153,.12);}
+ .seg button.active-match{border-color:var(--accent2); color:var(--accent2); background:rgba(251,191,36,.12);}
+ .btn{width:100%; padding:13px; border:none; border-radius:12px; background:var(--accent); color:#082f49; font-size:15px; font-weight:700; cursor:pointer; margin-top:10px;}
  .btn:active{transform:scale(.98);}
- .btn-danger{background:var(--red); color:#450a0a;}
- .btn-secondary{background:#334155; color:var(--text);}
+ .btn-danger{background:#450a0a; color:#fca5a5; border:1px solid #991b1b;}
+ .btn-secondary{background:#1b243b; color:var(--text); border:1px solid rgba(255,255,255,0.06);}
  
- .round-block{background:var(--card2); border-radius:12px; padding:12px; margin-bottom:10px;}
- .round-block.current{outline:2px solid #0284c7;}
+ .round-block{background:var(--card2); border-radius:12px; padding:12px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.04);}
+ .round-block.current{outline:2px solid var(--accent);}
  .round-block .round-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
- .round-block .round-head span{font-size:14px; font-weight:700; color:var(--muted);}
+ .round-block .round-head span{font-size:13px; font-weight:700; color:var(--muted);}
  .round-block .round-head b{color:var(--green); font-size:13px;}
  .round-block .round-head b.full{color:var(--accent2);}
  .arrows{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
@@ -51,99 +51,83 @@
  .arrows input.active{outline:2px solid var(--accent); border-color:transparent; background:#1e3a5f;}
  .arrows input.done{border-color:var(--green);}
 
- .round-dummy{opacity:0.35; pointer-events:none; border:1px dashed #475569; background:transparent;}
+ .round-dummy{opacity:0.35; pointer-events:none; border:1px dashed #334155; background:transparent;}
  .round-dummy input{background:transparent; border-color:#334155; color:transparent; cursor:default;}
  
  .c-gold{color:#fbbf24 !important;} .c-red{color:#f87171 !important;} .c-blue{color:#60a5fa !important;}
  .c-black{color:#cbd5e1 !important;} .c-white{color:#94a3b8 !important;} .c-miss{color:#64748b !important;}
- .badge{display:inline-block; padding:3px 10px; border-radius:20px; font-size:12px; font-weight:700;}
+ .badge{display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700;}
  .badge-train{background:rgba(52,211,153,.15); color:var(--green);}
- .badge-match{background:rgba(245,158,11,.15); color:var(--accent2);}
- .badge-gold{background:rgba(245,158,11,.2); color:var(--accent2); margin-left:6px;}
- .sess-item{background:var(--card); border-radius:var(--radius); padding:14px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; gap:10px; cursor:pointer;}
+ .badge-match{background:rgba(251,191,36,.15); color:var(--accent2);}
+ .badge-gold{background:rgba(251,191,36,.2); color:var(--accent2); margin-left:6px;}
+
+ .sess-item{background:var(--card); border-radius:var(--radius); padding:13px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px; cursor:pointer; border:1px solid rgba(255,255,255,0.05);}
+ .sess-item:active{transform:scale(0.99);}
  .sess-item .info{flex:1;}
- .sess-item .title{font-weight:700; font-size:15px; margin-bottom:3px;}
- .sess-item .sub{font-size:13px; color:var(--muted);}
- .sess-item .score{font-size:20px; font-weight:800; color:var(--accent); text-align:right;}
- .sess-item .avg-sub{font-size:12px; color:var(--muted); font-weight:normal;}
+ .sess-item .title{font-weight:700; font-size:14px; margin-bottom:2px;}
+ .sess-item .sub{font-size:12px; color:var(--muted);}
+ .sess-item .score{font-size:20px; font-weight:900; color:var(--accent); text-align:right;}
+ .sess-item .avg-sub{font-size:11px; color:var(--muted); font-weight:normal;}
  
- .stats-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
- .stat-box{background:var(--card2); border-radius:12px; padding:12px; text-align:center;}
- .stat-box .num{font-size:24px; font-weight:800; color:var(--accent);}
- .stat-box .sub-val{font-size:13px; font-weight:700; margin-top:2px;}
- .stat-box .lbl{font-size:11px; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:0.5px;}
+ .stats-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
+ .stat-box{background:var(--card); border-radius:12px; padding:12px; text-align:left; border:1px solid rgba(255,255,255,0.05); display:flex; flex-direction:column; justify-content:space-between;}
+ .stat-box .num{font-size:26px; font-weight:900; color:var(--accent); line-height:1.1; margin:4px 0;}
+ .stat-box .sub-val{font-size:11px; font-weight:600; color:var(--muted);}
+ .stat-box .lbl{font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; font-weight:700; display:flex; justify-content:space-between; align-items:center;}
  .stat-box.gold .num{color:var(--accent2);}
- .stat-box.gold .sub-val{color:var(--accent2);}
  .stat-box.green .num{color:var(--green);}
- .stat-box.green .sub-val{color:var(--green);}
- 
- .comp-table{width:100%; border-collapse:collapse; margin-top:8px; font-size:13px;}
- .comp-table th, .comp-table td{padding:9px 6px; text-align:center; border-bottom:1px solid #334155;}
- .comp-table th:first-child, .comp-table td:first-child{text-align:left;}
- .comp-table th{color:var(--muted); font-size:12px;}
+
+ .comp-table{width:100%; border-collapse:collapse; margin-top:8px; font-size:12px;}
+ .comp-table th, .comp-table td{padding:8px 4px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05);}
+ .comp-table th:first-child, .comp-table td:first-child{text-align:left; color:var(--muted);}
+ .comp-table th{color:var(--muted); font-size:11px;}
  .comp-table .c-t{color:var(--green); font-weight:700;}
  .comp-table .c-m{color:var(--accent2); font-weight:700;}
 
- .distrib-row{display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:13px;}
- .distrib-badge{width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; flex-shrink:0;}
- .bg-gold{background:#eab308; color:#422006;}
- .bg-red{background:#dc2626; color:#fff;}
- .bg-blue{background:#2563eb; color:#fff;}
- .bg-black{background:#334155; color:#cbd5e1; border:1px solid #475569;}
- .bg-white{background:#94a3b8; color:#0f172a;}
- .bg-miss{background:#1e293b; color:#64748b; border:1px dashed #475569;}
- .distrib-bar-container{flex:1;}
- .distrib-info{display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-bottom:3px;}
- .distrib-info b{color:var(--text);}
- .distrib-bar-wrap{background:var(--card2); height:7px; border-radius:6px; overflow:hidden;}
- .distrib-bar{height:100%; border-radius:6px;}
-
- .empty{text-align:center; color:var(--muted); padding:40px 20px; font-size:15px;}
- .detail-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #334155; font-size:14px;}
+ .empty{text-align:center; color:var(--muted); padding:30px 10px; font-size:13px;}
+ .detail-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:13px;}
  .detail-row span:last-child{color:var(--muted);}
- .bar-wrap{background:var(--card2); border-radius:8px; height:8px; margin-top:6px; overflow:hidden;}
+ .bar-wrap{background:var(--card2); border-radius:8px; height:6px; margin-top:6px; overflow:hidden;}
  .bar{height:100%; border-radius:8px;}
  
- .filter-row{display:flex; gap:8px; margin-bottom:14px;}
- .filter-row button{flex:1; padding:10px; border-radius:10px; border:1px solid #334155; background:var(--card); color:var(--muted); font-size:14px; font-weight:600; cursor:pointer;}
- .filter-row button.on{background:var(--accent); color:#082f49; border-color:transparent;}
+ .filter-row{display:flex; gap:6px; margin-bottom:12px; background:#060e20; padding:4px; border-radius:12px;}
+ .filter-row button{flex:1; padding:8px; border-radius:8px; border:none; background:transparent; color:var(--muted); font-size:12px; font-weight:700; cursor:pointer;}
+ .filter-row button.on{background:var(--accent); color:#082f49;}
 
- nav{position:fixed; bottom:0; left:0; right:0; height:calc(var(--nav-height) + env(safe-area-inset-bottom)); background:var(--card); display:flex; box-shadow:0 -2px 10px rgba(0,0,0,.4); z-index:30;}
- nav button{flex:1; padding:8px 4px calc(8px + env(safe-area-inset-bottom)); background:none; border:none; color:var(--muted); font-size:11px; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;}
- nav button .ico{font-size:20px;}
+ nav{position:fixed; bottom:0; left:0; right:0; height:calc(var(--nav-height) + env(safe-area-inset-bottom)); background:rgba(11,19,38,0.95); backdrop-filter:blur(10px); display:flex; border-top:1px solid rgba(255,255,255,0.06); z-index:30;}
+ nav button{flex:1; padding:6px 4px calc(6px + env(safe-area-inset-bottom)); background:none; border:none; color:var(--muted); font-size:11px; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-weight:600;}
+ nav button .ico{font-size:19px;}
  nav button.active{color:var(--accent);}
  
- /* Compact cijferblok */
- .numpad{position:fixed; bottom:calc(var(--nav-height) + env(safe-area-inset-bottom)); left:0; right:0; background:var(--card); padding:6px 10px 6px; box-shadow:0 -4px 20px rgba(0,0,0,.7); z-index:25; display:grid; grid-template-columns:repeat(4,1fr); gap:6px; max-width:560px; margin:0 auto; border-top:1px solid #334155;}
- .numpad button{border:none; border-radius:10px; padding:7px 0; font-size:17px; font-weight:800; cursor:pointer; color:#fff; box-shadow:0 2px 4px rgba(0,0,0,.3);}
+ .numpad{position:fixed; bottom:calc(var(--nav-height) + env(safe-area-inset-bottom)); left:0; right:0; background:#0b1326; padding:6px 10px 6px; box-shadow:0 -4px 20px rgba(0,0,0,.7); z-index:25; display:grid; grid-template-columns:repeat(4,1fr); gap:6px; max-width:480px; margin:0 auto; border-top:1px solid rgba(255,255,255,0.08);}
+ .numpad button{border:none; border-radius:10px; padding:8px 0; font-size:17px; font-weight:800; cursor:pointer; color:#fff;}
  .numpad button:active{transform:scale(.93);}
  .b-gold{background:#eab308; color:#422006 !important;}
  .b-red{background:#dc2626;}
  .b-blue{background:#2563eb;}
- .b-black{background:#475569;}
+ .b-black{background:#334155;}
  .b-white{background:#94a3b8; color:#0f172a !important;}
  .b-miss{background:#1e293b; border:1px solid #475569; color:#cbd5e1 !important;}
- .b-back{background:#334155; font-size:16px;}
+ .b-back{background:#263548; font-size:15px;}
 
- .modal-overlay{position:fixed; inset:0; background:rgba(15,23,42,0.85); z-index:50; display:flex; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(4px);}
- .modal-box{background:var(--card); border:1px solid #334155; border-radius:var(--radius); padding:24px 20px; width:100%; max-width:380px; box-shadow:0 10px 30px rgba(0,0,0,0.5); text-align:center;}
- .modal-box h2{font-size:18px; color:var(--text); margin-bottom:8px;}
- .modal-box p{font-size:14px; color:var(--muted); margin-bottom:20px;}
- .modal-choice-btn{width:100%; padding:16px; border-radius:12px; border:2px solid transparent; font-size:16px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px;}
+ .modal-overlay{position:fixed; inset:0; background:rgba(6,14,32,0.85); z-index:50; display:flex; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(4px);}
+ .modal-box{background:var(--card); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius); padding:24px 20px; width:100%; max-width:340px; box-shadow:0 10px 30px rgba(0,0,0,0.5); text-align:center;}
+ .modal-box h2{font-size:17px; color:var(--text); margin-bottom:6px;}
+ .modal-box p{font-size:13px; color:var(--muted); margin-bottom:18px;}
+ .modal-choice-btn{width:100%; padding:14px; border-radius:12px; border:1px solid transparent; font-size:15px; font-weight:800; cursor:pointer; margin-bottom:10px;}
  .modal-choice-btn:active{transform:scale(0.98);}
  .modal-choice-train{background:rgba(52,211,153,0.15); border-color:var(--green); color:var(--green);}
- .modal-choice-match{background:rgba(245,158,11,0.15); border-color:var(--accent2); color:var(--accent2);}
- .modal-btn-cancel{background:none; border:none; color:var(--muted); font-size:14px; padding:10px; cursor:pointer;}
+ .modal-choice-match{background:rgba(251,191,36,0.15); border-color:var(--accent2); color:var(--accent2);}
+ .modal-btn-cancel{background:none; border:none; color:var(--muted); font-size:13px; padding:8px; cursor:pointer;}
 
- .card-preview-container{width:100%; border:2px dashed #334155; border-radius:12px; padding:8px; text-align:center; cursor:pointer; transition:border-color .2s; position:relative; background:var(--bg); min-height:160px; display:flex; align-items:center; justify-content:center; overflow:hidden;}
- .card-preview-container:active{border-color:var(--accent);}
- .card-preview-img{max-width:100%; max-height:220px; border-radius:8px; object-fit:contain; display:block;}
- .card-placeholder{color:var(--muted); font-size:14px; padding:20px 10px;}
- .card-placeholder span{font-size:36px; display:block; margin-bottom:8px;}
+ .card-preview-container{width:100%; border:2px dashed #2d3449; border-radius:12px; padding:8px; text-align:center; cursor:pointer; position:relative; background:#0b1326; min-height:150px; display:flex; align-items:center; justify-content:center;}
+ .card-preview-img{max-width:100%; max-height:200px; border-radius:8px; object-fit:contain; display:block;}
+ .card-placeholder{color:var(--muted); font-size:13px; padding:16px 8px;}
+ .card-placeholder span{font-size:32px; display:block; margin-bottom:6px;}
 
- .lightbox-overlay{position:fixed; inset:0; background:rgba(10,15,28,0.95); z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(6px); cursor:pointer;}
- .lightbox-img{max-width:96vw; max-height:85vh; border-radius:12px; object-fit:contain; box-shadow:0 10px 40px rgba(0,0,0,.8); transform:scale(1); transition:transform .2s ease-out;}
- .lightbox-hint{color:var(--muted); font-size:13px; margin-top:14px; background:rgba(30,41,59,0.8); padding:6px 14px; border-radius:20px;}
+ .lightbox-overlay{position:fixed; inset:0; background:rgba(6,14,32,0.96); z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(6px); cursor:pointer;}
+ .lightbox-img{max-width:96vw; max-height:85vh; border-radius:12px; object-fit:contain; box-shadow:0 10px 40px rgba(0,0,0,.8);}
+ .lightbox-hint{color:var(--muted); font-size:12px; margin-top:14px;}
 </style>
 </head>
 <body>
@@ -205,28 +189,70 @@
    <button class="btn btn-danger" id="btnDelete">🗑️ Sessie verwijderen</button>
  </div>
 
- <!-- STATISTIEKEN VIEW -->
+ <!-- STATISTIEKEN & PRESTATIE ANALYSE (STITCH VIEW) -->
  <div id="view-stats" class="hidden">
+   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+     <div style="display:flex; align-items:center; gap:8px;">
+       <span style="color:var(--accent); font-size:18px;">📈</span>
+       <h1 style="font-size:17px; font-weight:800; color:#fff;">Prestatie Analyse</h1>
+     </div>
+     <div onclick="show('profile')" style="background:#131b2e; border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:4px 10px; font-size:11px; font-weight:700; color:var(--text); cursor:pointer;">
+       <span style="color:var(--accent);">●</span> <span id="statsBadgeSetup">18m Recurve</span>
+     </div>
+   </div>
+
+   <div class="filter-row">
+     <button class="on" id="btnH30" onclick="setHorizonFilter('30')">30 Dagen</button>
+     <button id="btnHSeason" onclick="setHorizonFilter('season')">Dit Seizoen</button>
+     <button id="btnHAll" onclick="setHorizonFilter('all')">Alles</button>
+   </div>
+
+   <div class="stats-grid" id="statsMatrix" style="margin-bottom:14px;"></div>
+
+   <div class="card">
+     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+       <div>
+         <div style="font-size:10px; font-weight:700; color:var(--accent); text-transform:uppercase;">Scoreprogressie</div>
+         <div style="font-size:14px; font-weight:800; color:#fff;">Rondeverloop (Laatste Sessies)</div>
+       </div>
+       <div style="font-size:11px; color:var(--muted);"><span style="color:var(--accent);">●</span> Sessie <span style="color:var(--accent2); margin-left:6px;">●</span> PR</div>
+     </div>
+     <div id="sparklineContainer" style="height:120px; position:relative;"></div>
+     <div id="sparklineAxis" style="display:flex; justify-content:space-between; font-size:10px; color:var(--muted); border-top:1px solid rgba(255,255,255,0.06); padding-top:4px; margin-top:4px;"></div>
+   </div>
+
+   <div class="card">
+     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+       <div>
+         <div style="font-size:10px; font-weight:700; color:var(--accent); text-transform:uppercase;">Uithoudingsvermogen</div>
+         <div style="font-size:14px; font-weight:800; color:#fff;">Gemiddelde per Serie (S1 - S10)</div>
+       </div>
+       <span style="font-size:10px; background:#0b1326; padding:2px 6px; border-radius:6px; color:var(--muted);">Max: 30p</span>
+     </div>
+     <div id="endBarsContainer" style="display:flex; align-items:flex-end; justify-content:space-between; height:100px; gap:4px; margin-bottom:10px;"></div>
+     <div id="coachInsightBox" style="background:#0b1326; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.05); font-size:11px; color:var(--muted); display:flex; gap:8px;"></div>
+   </div>
+
+   <div class="card">
+     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+       <div>
+         <div style="font-size:10px; font-weight:700; color:var(--accent); text-transform:uppercase;">Kleurverdeling</div>
+         <div style="font-size:14px; font-weight:800; color:#fff;" id="freqHeaderCount">Score Frequentie</div>
+       </div>
+       <span style="font-size:14px;">🎯</span>
+     </div>
+     <div id="colorDistBar" style="height:10px; border-radius:10px; overflow:hidden; display:flex; margin-bottom:8px; background:#0b1326;"></div>
+     <div id="colorDistLegend" style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:12px;"></div>
+     <div id="colorCountsMatrix" style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;"></div>
+   </div>
+
    <div class="card">
      <h2>Vergelijking: Training vs. Wedstrijd</h2>
      <div id="typeComparison"></div>
    </div>
 
-   <div class="card">
-     <h2>Pijldistributie (schotverdeling)</h2>
-     <div class="filter-row" style="margin-bottom:12px;">
-       <button class="on" id="btnDistAll" onclick="setDistFilter('alles')">Alles</button>
-       <button id="btnDistTrain" onclick="setDistFilter('training')">Training</button>
-       <button id="btnDistMatch" onclick="setDistFilter('wedstrijd')">Wedstrijd</button>
-     </div>
-     <div id="arrowDistribution"></div>
-   </div>
+   <div class="card" id="materialSnippet" style="display:flex; justify-content:space-between; align-items:center;"></div>
 
-   <div class="card">
-     <h2>Algemene Statistieken</h2>
-     <div id="statsContent"></div>
-   </div>
-   
    <div class="card">
      <h2>Gegevensbeheer</h2>
      <button class="btn btn-secondary" id="btnExport" style="margin-top:0;">📥 Exporteer backup (Opslaan / Delen)</button>
@@ -314,7 +340,7 @@
  </div>
 </div>
 
-<!-- CIJFERBLOK (COMPACT & VAN HOOG NAAR LAAG) -->
+<!-- CIJFERBLOK -->
 <div id="numpad" class="numpad hidden">
  <button class="b-gold" data-v="X" style="font-weight:900;">X</button>
  <button class="b-gold" data-v="10">10</button>
@@ -341,7 +367,7 @@ let sessions = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
 let currentType = 'training';
 let editingId = null;
 let filter = 'alles';
-let distFilter = 'alles';
+let horizonFilter = '30';
 let detailId = null;
 let activeField = null;
 
@@ -436,6 +462,8 @@ function show(view){
   $('numpad').classList.toggle('hidden', !isNew);
   $('btnSave').classList.toggle('hidden', !isNew);
   if (!isNew) window.scrollTo(0,0);
+
+  if (view === 'stats') renderStats();
 }
 
 function calcStats(arr){
@@ -465,22 +493,22 @@ function renderHome(){
 
   if (filter === 'training') {
     tilesHtml = `
-    <div class="stat-box green"><div class="num">${stTrain.count}</div><div class="sub-val" style="color:var(--muted);">${stTrain.arrows} pijlen</div><div class="lbl">🎯 Trainingen</div></div>
-    <div class="stat-box green"><div class="num">${stTrain.pr}</div><div class="sub-val" style="color:var(--muted);">punten</div><div class="lbl">PR Training</div></div>
-    <div class="stat-box green"><div class="num">${stTrain.avgTot}</div><div class="sub-val">${stTrain.perc !== '–' ? stTrain.perc + '%' : '–'}</div><div class="lbl">Gem. Score / Sessie</div></div>
-    <div class="stat-box green"><div class="num">${stTrain.avgP !== '–' ? stTrain.avgP : '–'}</div><div class="sub-val">${stTrain.x}x X (${stTrain.xPerc}%)</div><div class="lbl">Gem. per Pijl</div></div>`;
+    <div class="stat-box green"><div class="lbl"><span>🎯 Trainingen</span></div><div class="num">${stTrain.count}</div><div class="sub-val">${stTrain.arrows} pijlen</div></div>
+    <div class="stat-box green"><div class="lbl"><span>PR Training</span></div><div class="num">${stTrain.pr}</div><div class="sub-val">punten</div></div>
+    <div class="stat-box green"><div class="lbl"><span>Gem. Score</span></div><div class="num">${stTrain.avgTot}</div><div class="sub-val">${stTrain.perc !== '–' ? stTrain.perc + '%' : '–'}</div></div>
+    <div class="stat-box green"><div class="lbl"><span>Gem. per Pijl</span></div><div class="num">${stTrain.avgP !== '–' ? stTrain.avgP : '–'}</div><div class="sub-val">${stTrain.x}x X (${stTrain.xPerc}%)</div></div>`;
   } else if (filter === 'wedstrijd') {
     tilesHtml = `
-    <div class="stat-box gold"><div class="num">${stMatch.count}</div><div class="sub-val" style="color:var(--muted);">${stMatch.arrows} pijlen</div><div class="lbl">🏆 Wedstrijden</div></div>
-    <div class="stat-box gold"><div class="num">${stMatch.pr}</div><div class="sub-val" style="color:var(--muted);">punten</div><div class="lbl">PR Wedstrijd</div></div>
-    <div class="stat-box gold"><div class="num">${stMatch.avgTot}</div><div class="sub-val">${stMatch.perc !== '–' ? stMatch.perc + '%' : '–'}</div><div class="lbl">Gem. Score / Sessie</div></div>
-    <div class="stat-box gold"><div class="num">${stMatch.avgP !== '–' ? stMatch.avgP : '–'}</div><div class="sub-val">${stMatch.x}x X (${stMatch.xPerc}%)</div><div class="lbl">Gem. per Pijl</div></div>`;
+    <div class="stat-box gold"><div class="lbl"><span>🏆 Wedstrijden</span></div><div class="num">${stMatch.count}</div><div class="sub-val">${stMatch.arrows} pijlen</div></div>
+    <div class="stat-box gold"><div class="lbl"><span>PR Wedstrijd</span></div><div class="num">${stMatch.pr}</div><div class="sub-val">punten</div></div>
+    <div class="stat-box gold"><div class="lbl"><span>Gem. Score</span></div><div class="num">${stMatch.avgTot}</div><div class="sub-val">${stMatch.perc !== '–' ? stMatch.perc + '%' : '–'}</div></div>
+    <div class="stat-box gold"><div class="lbl"><span>Gem. per Pijl</span></div><div class="num">${stMatch.avgP !== '–' ? stMatch.avgP : '–'}</div><div class="sub-val">${stMatch.x}x X (${stMatch.xPerc}%)</div></div>`;
   } else {
     tilesHtml = `
-    <div class="stat-box"><div class="num">${stAll.count}</div><div class="sub-val" style="color:var(--muted);">${stAll.avgP !== '–' ? stAll.avgP + ' p/p' : '–'}</div><div class="lbl">Totaal (${stAll.arrows} pijlen)</div></div>
-    <div class="stat-box"><div class="num">${stAll.pr}</div><div class="sub-val" style="color:var(--muted);">punten</div><div class="lbl">Persoonlijk Record</div></div>
-    <div class="stat-box green"><div class="num">${stTrain.avgTot}</div><div class="sub-val">${stTrain.avgP !== '–' ? stTrain.avgP + ' p/p' : '–'}</div><div class="lbl">🎯 Gem. Training</div></div>
-    <div class="stat-box gold"><div class="num">${stMatch.avgTot}</div><div class="sub-val">${stMatch.avgP !== '–' ? stMatch.avgP + ' p/p' : '–'}</div><div class="lbl">🏆 Gem. Wedstrijd</div></div>`;
+    <div class="stat-box"><div class="lbl"><span>Totaal</span></div><div class="num">${stAll.count}</div><div class="sub-val">${stAll.arrows} pijlen geschoten</div></div>
+    <div class="stat-box gold"><div class="lbl"><span>Record (PR)</span></div><div class="num">${stAll.pr}</div><div class="sub-val">punten</div></div>
+    <div class="stat-box green"><div class="lbl"><span>🎯 Gem. Training</span></div><div class="num">${stTrain.avgTot}</div><div class="sub-val">${stTrain.avgP !== '–' ? stTrain.avgP + ' p/p' : '–'}</div></div>
+    <div class="stat-box gold"><div class="lbl"><span>🏆 Gem. Wedstrijd</span></div><div class="num">${stMatch.avgTot}</div><div class="sub-val">${stMatch.avgP !== '–' ? stMatch.avgP + ' p/p' : '–'}</div></div>`;
   }
 
   $('homeStats').innerHTML = tilesHtml;
@@ -587,7 +615,6 @@ function readRounds(){
   return rounds;
 }
 
-// ---------------- LOPEND GEMIDDELDE PER REGEL ----------------
 function updateAllRoundSums(){
   let runningTotal = 0;
   let runningMax = 0;
@@ -780,126 +807,221 @@ $('btnDelete').onclick = () => {
   saveLS(); show('home'); renderHome();
 };
 
-function setDistFilter(f){
-  distFilter = f;
-  $('btnDistAll').className = f === 'alles' ? 'on' : '';
-  $('btnDistTrain').className = f === 'training' ? 'on' : '';
-  $('btnDistMatch').className = f === 'wedstrijd' ? 'on' : '';
-  renderDistribution();
-}
-
-function renderDistribution(){
-  let set = sessions;
-  if (distFilter !== 'alles') set = set.filter(s => s.type === distFilter);
-  if (!set.length){ $('arrowDistribution').innerHTML = '<div class="empty">Geen data.</div>'; return; }
-
-  const counts = { 'X': 0, '10': 0, '9': 0, '8': 0, '7': 0, '6': 0, '5': 0, '4': 0, '3': 0, '2': 0, '1': 0, 'M': 0 };
-  let totalCount = 0;
-  set.forEach(s => {
-    if (!s.rounds) return;
-    s.rounds.flat().forEach(val => {
-      if (val === null || val === undefined || val === '') return;
-      totalCount++;
-      const str = String(val).toUpperCase();
-      if (str === 'X') counts['X']++;
-      else if (counts[str] !== undefined) counts[str]++;
-      else counts['M']++;
-    });
+// ---------------- STATS VIEW (STITCH ONTWERP) ----------------
+function setHorizonFilter(h){
+  horizonFilter = h;
+  ['30', 'Season', 'All'].forEach(k => {
+    const btn = $('btnH' + k);
+    if (!btn) return;
+    btn.className = (k.toLowerCase() === h.toLowerCase()) ? 'on' : '';
   });
-
-  const order = ['X', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1', 'M'];
-  const maxHit = Math.max(...Object.values(counts), 1);
-  $('arrowDistribution').innerHTML = order.map(k => {
-    const hits = counts[k];
-    const pct = totalCount ? ((hits / totalCount) * 100).toFixed(1) : 0;
-    return `
-    <div class="distrib-row">
-      <div class="distrib-badge bg-${scoreClass(k).replace('c-','')}">${k}</div>
-      <div class="distrib-bar-container">
-        <div class="distrib-info"><span><b>${hits}x</b> in de ${k}</span><span>${pct}%</span></div>
-        <div class="distrib-bar-wrap"><div class="distrib-bar" style="width:${(hits/maxHit)*100}%; background:var(--accent);"></div></div>
-      </div>
-    </div>`;
-  }).join('');
+  renderStats();
 }
 
-// ---------------- STATS VIEW (FOUTTOLERANT) ----------------
 function renderStats(){
-  if (!sessions || !sessions.length){ 
-    $('typeComparison').innerHTML = '<div class="empty">Nog geen data beschikbaar.</div>'; 
-    $('arrowDistribution').innerHTML = '<div class="empty">Nog geen data beschikbaar.</div>'; 
-    $('statsContent').innerHTML = '<div class="empty">Nog geen data beschikbaar.</div>'; 
-    return; 
-  }
-
   try {
-    const train = sessions.filter(s => s.type === 'training');
-    const match = sessions.filter(s => s.type === 'wedstrijd');
-    const stT = calcStats(train);
-    const stM = calcStats(match);
+    const prof = JSON.parse(localStorage.getItem(LS_PROFILE_KEY) || '{}');
+    $('statsBadgeSetup').textContent = `18m ${prof.discipline || 'Recurve'}`;
 
-    // 1. Vergelijkingstabel Training vs Wedstrijd
-    $('typeComparison').innerHTML = `
-    <table class="comp-table">
-      <thead><tr><th>Statistiek</th><th class="c-t">🎯 Training</th><th class="c-m">🏆 Wedstrijd</th></tr></thead>
-      <tbody>
-        <tr><td>Aantal sessies</td><td><b>${stT.count}</b></td><td><b>${stM.count}</b></td></tr>
-        <tr><td>Pijlen totaal</td><td>${stT.arrows}</td><td>${stM.arrows}</td></tr>
-        <tr><td>PR (Hoogste score)</td><td class="c-t">${stT.pr}</td><td class="c-m">${stM.pr}</td></tr>
-        <tr><td>Gem. sessiescore</td><td class="c-t">${stT.avgTot}</td><td class="c-m">${stM.avgTot}</td></tr>
-        <tr><td>Gem. per pijl</td><td class="c-t">${stT.avgP !== '–' ? stT.avgP + ' p/p' : '–'}</td><td class="c-m">${stM.avgP !== '–' ? stM.avgP + ' p/p' : '–'}</td></tr>
-        <tr><td>Score percentage</td><td>${stT.perc !== '–' ? stT.perc + '%' : '–'}</td><td>${stM.perc !== '–' ? stM.perc + '%' : '–'}</td></tr>
-        <tr><td>Aantal X-en</td><td>${stT.x} (${stT.xPerc}%)</td><td>${stM.x} (${stM.xPerc}%)</td></tr>
-      </tbody>
-    </table>`;
-
-    // 2. Schotverdeling
-    renderDistribution();
-
-    // 3. Algemene Statistieken
-    const validScores = sessions.map(s => Number(s.total) || 0);
-    const totalArrows = sessions.reduce((a, s) => a + (Number(s.totalArrows) || (s.rounds ? s.rounds.flat().length : 0)), 0);
-    const totalScore = validScores.reduce((a, b) => a + b, 0);
-    const totalX = sessions.reduce((a, s) => a + (Number(s.xCount) || (s.rounds ? s.rounds.flat().filter(v => String(v).toUpperCase() === 'X').length : 0)), 0);
-    
-    const overallAvgPijl = totalArrows ? (totalScore / totalArrows).toFixed(2) : '0.00';
-    const xPerc = totalArrows ? ((totalX / totalArrows) * 100).toFixed(1) : '0.0';
-    const prScore = validScores.length ? Math.max(...validScores) : 0;
-
-    let html = `
-    <div class="detail-row"><span>Sessies totaal</span><b>${sessions.length}</b></div>
-    <div class="detail-row"><span>Pijlen geschoten</span><b>${totalArrows}</b></div>
-    <div class="detail-row"><span>Gemiddelde per pijl (totaal)</span><b style="color:var(--accent);">${overallAvgPijl} p/p</b></div>
-    <div class="detail-row"><span>Totaal aantal X-en</span><b style="color:var(--accent2);">${totalX} (${xPerc}%)</b></div>
-    <div class="detail-row"><span>Persoonlijk record</span><b style="color:var(--green);">${prScore} pts</b></div>`;
-
-    const validDateSessions = sessions.slice().filter(s => s && s.date).sort((a, b) => String(a.date).localeCompare(String(b.date)));
-    const last10 = validDateSessions.slice(-10);
-
-    if (last10.length > 0){
-      html += `<h2 style="margin-top:18px; margin-bottom:10px;">Laatste ${last10.length} sessies (gem. per pijl)</h2>`;
-      html += last10.map(s => {
-        const pCount = Number(s.totalArrows) || (s.rounds ? s.rounds.flat().length : 30);
-        const pAvg = pCount ? (Number(s.total || 0) / pCount).toFixed(2) : '0.00';
-        const isM = s.type === 'wedstrijd';
-        const barWidth = Math.min(Math.max((Number(pAvg) / 10) * 100, 0), 100);
-
-        return `<div style="margin-bottom:10px;">
-          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-bottom:2px;">
-            <span>${fmtDate(s.date)} <b style="color:${isM ? 'var(--accent2)' : 'var(--green)'};">(${isM ? 'Wedstrijd' : 'Training'})</b></span>
-            <span style="font-weight:700; color:var(--text);">${pAvg} p/p (${s.total || 0} pts)</span>
-          </div>
-          <div class="bar-wrap"><div class="bar" style="width:${barWidth}%; background:${isM ? 'var(--accent2)' : 'var(--green)'};"></div></div>
-        </div>`;
-      }).join('');
+    let list = sessions.slice();
+    const now = new Date();
+    if (horizonFilter === '30'){
+      const limit = new Date(now.getTime() - (30 * 24 * 60 * 60 * 1000));
+      list = list.filter(s => new Date(s.date) >= limit);
     }
 
-    $('statsContent').innerHTML = html;
-  } catch (err) {
-    $('statsContent').innerHTML = `<div style="color:var(--red); padding:10px; font-size:13px;">Fout bij weergeven statistieken: ${err.message}</div>`;
-  }
+    const st = calcStats(list);
+    const flatArrows = list.map(s => s.rounds ? s.rounds.flat() : []).flat().filter(v => v !== null && v !== undefined && v !== '');
 
-  updateBackupStatus();
+    const goldHits = flatArrows.filter(v => ['X','10','9'].includes(String(v).toUpperCase())).length;
+    const goldPct = flatArrows.length ? ((goldHits / flatArrows.length) * 100).toFixed(1) : '0';
+    const inner10Hits = flatArrows.filter(v => String(v).toUpperCase() === 'X').length;
+    const inner10Pct = flatArrows.length ? ((inner10Hits / flatArrows.length) * 100).toFixed(0) : '0';
+
+    // 1. 2x2 Telemetry Matrix
+    $('statsMatrix').innerHTML = `
+      <div class="stat-box">
+        <div class="lbl"><span>Gemiddelde p/p</span><span>📊</span></div>
+        <div class="num">${st.avgP !== '–' ? st.avgP : '0.00'}</div>
+        <div class="sub-val" style="color:var(--green);">↗ ${st.count} sessies geregistreerd</div>
+      </div>
+      <div class="stat-box">
+        <div class="lbl"><span>Totaal Volume</span><span>🎯</span></div>
+        <div class="num" style="color:#fff;">${st.arrows}</div>
+        <div class="sub-val">pijlen geschoten</div>
+      </div>
+      <div class="stat-box gold">
+        <div class="lbl"><span>Goud & X-ratio</span><span style="background:var(--accent2); color:#000; border-radius:50%; width:16px; height:16px; display:inline-flex; align-items:center; justify-content:center; font-size:10px;">10</span></div>
+        <div class="num">${goldPct}%</div>
+        <div class="sub-val">${inner10Pct}% Binnen-10 (X) treffers</div>
+      </div>
+      <div class="stat-box">
+        <div class="lbl"><span>Hoogste Ronde (PR)</span><span>🏆</span></div>
+        <div class="num" style="color:#fff;">${st.pr} <span style="font-size:12px; color:var(--muted); font-weight:normal;">/ 300</span></div>
+        <div class="sub-val" style="color:var(--accent2);">Persoonlijk Record</div>
+      </div>
+    `;
+
+    // 2. Score Progression SVG Sparkline
+    const sortedSessions = sessions.slice().filter(s => s && s.date).sort((a,b) => String(a.date).localeCompare(String(b.date)));
+    const last8 = sortedSessions.slice(-8);
+
+    if (last8.length >= 2){
+      const scores = last8.map(s => Number(s.total) || 0);
+      const minS = Math.min(...scores, 150);
+      const maxS = Math.max(...scores, 280);
+      const range = (maxS - minS) || 1;
+
+      const points = scores.map((val, i) => {
+        const x = 20 + (i * (280 / (scores.length - 1)));
+        const y = 95 - (((val - minS) / range) * 65);
+        return { x, y, val, pr: (val === Number(st.pr)) };
+      });
+
+      const ptsString = points.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+
+      $('sparklineContainer').innerHTML = `
+        <svg viewBox="0 0 320 110" style="width:100%; height:100%; overflow:visible;">
+          <line x1="10" y1="45" x2="310" y2="45" stroke="#334155" stroke-dasharray="3,3" stroke-width="1"/>
+          <text x="12" y="40" fill="#64748b" font-size="8" font-weight="700">DOELSTELLING: 250</text>
+          <line x1="10" y1="95" x2="310" y2="95" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <polyline fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${ptsString}" />
+          ${points.map(p => p.pr ? `
+            <circle cx="${p.x}" cy="${p.y}" r="4.5" fill="#fbbf24" stroke="#0b1326" stroke-width="2" />
+            <text x="${p.x}" y="${p.y - 8}" fill="#fbbf24" font-size="9" font-weight="800" text-anchor="middle">${p.val} PR</text>
+          ` : `
+            <circle cx="${p.x}" cy="${p.y}" r="3" fill="#38bdf8" stroke="#0b1326" stroke-width="1.5" />
+          `).join('')}
+        </svg>
+      `;
+
+      $('sparklineAxis').innerHTML = `
+        <span>Eerste</span>
+        <span>Midden</span>
+        <span style="color:var(--accent2);">Laatste (${last8[last8.length-1].total} pts)</span>
+      `;
+    } else {
+      $('sparklineContainer').innerHTML = `<div class="empty">Minimaal 2 sessies nodig voor de progressiegrafiek.</div>`;
+      $('sparklineAxis').innerHTML = '';
+    }
+
+    // 3. Serie-verloop Analyse S1-S10
+    const roundAverages = Array(10).fill(0);
+    const roundCounts = Array(10).fill(0);
+
+    sessions.forEach(s => {
+      if (s.rounds){
+        s.rounds.forEach((r, idx) => {
+          if (idx < 10 && r && r.length){
+            const sum = r.reduce((a,b) => a + valToNum(b), 0);
+            roundAverages[idx] += sum;
+            roundCounts[idx]++;
+          }
+        });
+      }
+    });
+
+    const finalEndAvgs = roundAverages.map((sum, i) => roundCounts[i] ? (sum / roundCounts[i]).toFixed(1) : '–');
+    const validAvgs = finalEndAvgs.filter(v => v !== '–').map(Number);
+    const maxEndAvg = validAvgs.length ? Math.max(...validAvgs) : 30;
+
+    $('endBarsContainer').innerHTML = finalEndAvgs.map((avg, i) => {
+      const val = avg === '–' ? 0 : Number(avg);
+      const h = Math.round((val / 30) * 100);
+      const isPeak = (val === maxEndAvg && val > 0);
+      const isDrop = (i >= 7 && val < (maxEndAvg - 1.5) && val > 0);
+
+      return `
+        <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; height:100%; justify-content:flex-end;">
+          <span style="font-size:9px; color:${isPeak ? 'var(--accent2)' : isDrop ? 'var(--red)' : 'var(--muted)'}; font-weight:700;">${avg}</span>
+          <div style="width:100%; height:${h}%; background:${isPeak ? 'var(--accent2)' : isDrop ? 'var(--red)' : 'var(--accent)'}; border-radius:4px 4px 0 0;"></div>
+          <span style="font-size:9px; color:var(--muted); font-weight:700;">S${i+1}</span>
+        </div>
+      `;
+    }).join('');
+
+    $('coachInsightBox').innerHTML = `
+      <span style="color:var(--accent2); font-size:16px;">💡</span>
+      <div>
+        <b style="color:#fff; display:block; margin-bottom:2px;">Serie-analyse over alle sessies</b>
+        Je hoogste gemiddelde serie ligt op <b>S${finalEndAvgs.indexOf(String(maxEndAvg)) + 1} (${maxEndAvg} pnt)</b>. Zorg voor een rustig schotritme in de latere series.
+      </div>
+    `;
+
+    // 4. Kleurverdeling & Pijlmatrix
+    const counts = { 'X': 0, '10': 0, '9': 0, '8': 0, '7': 0, '6': 0, '5': 0, '4': 0, '3': 0, '2': 0, '1': 0, 'M': 0 };
+    flatArrows.forEach(v => {
+      const s = String(v).toUpperCase();
+      if (counts[s] !== undefined) counts[s]++;
+      else counts['M']++;
+    });
+
+    const totF = flatArrows.length || 1;
+    const goudC = counts['X'] + counts['10'] + counts['9'];
+    const roodC = counts['8'] + counts['7'];
+    const blauwC = counts['6'] + counts['5'];
+    const restC = counts['4'] + counts['3'] + counts['2'] + counts['1'] + counts['M'];
+
+    const gPct = Math.round((goudC / totF) * 100);
+    const rPct = Math.round((roodC / totF) * 100);
+    const bPct = Math.round((blauwC / totF) * 100);
+    const restPct = Math.max(0, 100 - (gPct + rPct + bPct));
+
+    $('freqHeaderCount').textContent = `Score Frequentie (${flatArrows.length} Pijlen)`;
+    $('colorDistBar').innerHTML = `
+      <div style="width: ${gPct}%; background:#fbbf24;"></div>
+      <div style="width: ${rPct}%; background:#ef4444;"></div>
+      <div style="width: ${bPct}%; background:#0284c7;"></div>
+      <div style="width: ${restPct}%; background:#334155;"></div>
+    `;
+
+    $('colorDistLegend').innerHTML = `
+      <div><span style="color:#fbbf24;">●</span> Goud <b>${gPct}%</b></div>
+      <div><span style="color:#ef4444;">●</span> Rood <b>${rPct}%</b></div>
+      <div><span style="color:#0284c7;">●</span> Blauw <b>${bPct}%</b></div>
+      <div><span style="color:#64748b;">●</span> Rest <b>${restPct}%</b></div>
+    `;
+
+    $('colorCountsMatrix').innerHTML = `
+      <div style="background:#0b1326; padding:8px; border-radius:8px; text-align:center;"><div style="font-size:10px; color:var(--accent2); font-weight:700;">X (Binnen-10)</div><div style="font-size:15px; font-weight:900;">${counts['X']}x</div></div>
+      <div style="background:#0b1326; padding:8px; border-radius:8px; text-align:center;"><div style="font-size:10px; color:var(--accent2); font-weight:700;">10</div><div style="font-size:15px; font-weight:900;">${counts['10']}x</div></div>
+      <div style="background:#0b1326; padding:8px; border-radius:8px; text-align:center;"><div style="font-size:10px; color:var(--accent2); font-weight:700;">9</div><div style="font-size:15px; font-weight:900;">${counts['9']}x</div></div>
+      <div style="background:#0b1326; padding:8px; border-radius:8px; text-align:center;"><div style="font-size:10px; color:var(--red); font-weight:700;">8</div><div style="font-size:15px; font-weight:900;">${counts['8']}x</div></div>
+      <div style="background:#0b1326; padding:8px; border-radius:8px; text-align:center;"><div style="font-size:10px; color:var(--red); font-weight:700;">7</div><div style="font-size:15px; font-weight:900;">${counts['7']}x</div></div>
+      <div style="background:#0b1326; padding:8px; border-radius:8px; text-align:center;"><div style="font-size:10px; color:var(--muted); font-weight:700;">M (Mis)</div><div style="font-size:15px; font-weight:900;">${counts['M']}x</div></div>
+    `;
+
+    // 5. Training vs. Wedstrijd Tabel
+    const stT = calcStats(sessions.filter(s => s.type === 'training'));
+    const stM = calcStats(sessions.filter(s => s.type === 'wedstrijd'));
+
+    $('typeComparison').innerHTML = `
+      <table class="comp-table">
+        <thead><tr><th>Statistiek</th><th class="c-t">🎯 Training</th><th class="c-m">🏆 Wedstrijd</th></tr></thead>
+        <tbody>
+          <tr><td>Aantal sessies</td><td><b>${stT.count}</b></td><td><b>${stM.count}</b></td></tr>
+          <tr><td>Pijlen totaal</td><td>${stT.arrows}</td><td>${stM.arrows}</td></tr>
+          <tr><td>PR (Hoogste score)</td><td class="c-t">${stT.pr}</td><td class="c-m">${stM.pr}</td></tr>
+          <tr><td>Gem. sessiescore</td><td class="c-t">${stT.avgTot}</td><td class="c-m">${stM.avgTot}</td></tr>
+          <tr><td>Gem. per pijl</td><td class="c-t">${stT.avgP !== '–' ? stT.avgP + ' p/p' : '–'}</td><td class="c-m">${stM.avgP !== '–' ? stM.avgP + ' p/p' : '–'}</td></tr>
+          <tr><td>Aantal X-en</td><td>${stT.x} (${stT.xPerc}%)</td><td>${stM.x} (${stM.xPerc}%)</td></tr>
+        </tbody>
+      </table>`;
+
+    // 6. Materiaal Snippet
+    $('materialSnippet').innerHTML = `
+      <div>
+        <div style="font-size:10px; color:var(--muted); text-transform:uppercase; font-weight:700;">Configuratie & Materiaal</div>
+        <div style="font-size:13px; font-weight:800; color:#fff; margin-top:2px;">${prof.discipline || 'Recurve'} (${prof.poundage || '–'} lbs)</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:2px;">${prof.notes || 'Geen materiaalnotities ingevuld'}</div>
+      </div>
+      <span style="background:#0b1326; padding:4px 10px; border-radius:12px; font-size:11px; font-weight:700; color:var(--accent); border:1px solid rgba(255,255,255,0.06);">Setup</span>
+    `;
+
+    updateBackupStatus();
+  } catch(err) {
+    console.error('Stats render error:', err);
+  }
 }
 
 // ---------------- PROFIEL VIEW ----------------
@@ -962,7 +1084,7 @@ $('inpPassFile').onchange = e => {
   reader.readAsDataURL(file);
 };
 
-// ---------------- EXPORT / IMPORT (HYBRIDE: WEB SHARE / EDGE PICKER / DOWNLOAD) ----------------
+// ---------------- EXPORT / IMPORT (HYBRIDE MET REPARATIE) ----------------
 $('btnExport').onclick = async () => {
   const backupData = {
     sessions: sessions,
@@ -972,7 +1094,6 @@ $('btnExport').onclick = async () => {
   const jsonStr = JSON.stringify(backupData, null, 2);
   const defaultName = `boogschiet_backup_${new Date().toISOString().slice(0,10)}.json`;
 
-  // 1. Probeer op desktop de native Edge/Chrome bestandskiezer
   if ('showSaveFilePicker' in window) {
     try {
       const lastHandle = await getLastHandle();
@@ -983,9 +1104,7 @@ $('btnExport').onclick = async () => {
           accept: { 'application/json': ['.json'] }
         }]
       };
-      if (lastHandle) {
-        pickerOptions.startIn = lastHandle;
-      }
+      if (lastHandle) pickerOptions.startIn = lastHandle;
 
       const fileHandle = await window.showSaveFilePicker(pickerOptions);
       const writable = await fileHandle.createWritable();
@@ -993,18 +1112,15 @@ $('btnExport').onclick = async () => {
       await writable.close();
 
       await saveLastHandle(fileHandle);
-
       localStorage.setItem('boogschiet_last_backup_date', new Date().toLocaleString('nl-NL'));
       updateBackupStatus();
-      alert('Backup succesvol opgeslagen in de gekozen map! ✅');
+      alert('Backup succesvol opgeslagen! ✅');
       return;
     } catch (err) {
       if (err.name === 'AbortError') return;
-      console.warn('FilePicker niet gelukt of afgebroken, val terug op andere methoden:', err);
     }
   }
 
-  // 2. Probeer op mobiel het Android/iOS deelmenu (Web Share API voor bestanden)
   const file = new File([jsonStr], defaultName, { type: 'application/json' });
   if (navigator.canShare && navigator.canShare({ files: [file] })) {
     try {
@@ -1018,11 +1134,9 @@ $('btnExport').onclick = async () => {
       return;
     } catch (err) {
       if (err.name === 'AbortError') return;
-      console.warn('Web Share geannuleerd of niet gelukt, val terug op download:', err);
     }
   }
 
-  // 3. Universele fallback download
   const blob = new Blob([jsonStr], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -1045,9 +1159,7 @@ $('btnImportTrigger').onclick = async () => {
           accept: { 'application/json': ['.json'] }
         }]
       };
-      if (lastHandle) {
-        pickerOptions.startIn = lastHandle;
-      }
+      if (lastHandle) pickerOptions.startIn = lastHandle;
 
       const [fileHandle] = await window.showOpenFilePicker(pickerOptions);
       const file = await fileHandle.getFile();
@@ -1058,7 +1170,6 @@ $('btnImportTrigger').onclick = async () => {
       return;
     } catch (err) {
       if (err.name === 'AbortError') return;
-      console.warn('FilePicker geannuleerd of mislukt:', err);
     }
   }
 
@@ -1076,32 +1187,49 @@ $('inpImport').onchange = e => {
 function processImportData(rawJson) {
   try {
     const data = JSON.parse(rawJson);
-    if (data && data.sessions) {
-      if (confirm(`Backup gevonden met ${data.sessions.length} sessies. Wil je deze herstellen?`)) {
-        const ids = new Set(sessions.map(s => s.id));
-        data.sessions.forEach(item => { if (!ids.has(item.id)) sessions.push(item); });
-        saveLS();
+    let importedSessions = [];
 
-        if (data.profile) localStorage.setItem(LS_PROFILE_KEY, JSON.stringify(data.profile));
-        if (data.pass) localStorage.setItem(LS_PASS_KEY, data.pass);
-
-        loadProfile();
-        renderHome();
-        renderStats();
-        alert('Backup succesvol hersteld! ✅');
-      }
+    if (data && Array.isArray(data.sessions)) {
+      importedSessions = data.sessions;
+      if (data.profile) localStorage.setItem(LS_PROFILE_KEY, JSON.stringify(data.profile));
+      if (data.pass) localStorage.setItem(LS_PASS_KEY, data.pass);
     } else if (Array.isArray(data)) {
-      if (confirm(`Wil je ${data.length} sessies importeren?`)) {
-        const ids = new Set(sessions.map(s => s.id));
-        data.forEach(item => { if (!ids.has(item.id)) sessions.push(item); });
-        saveLS(); renderHome(); renderStats();
-        alert('Sessies succesvol geïmporteerd! ✅');
-      }
+      importedSessions = data;
     } else {
-      alert('Ongeldig databestand.');
+      alert('Ongeldig backupbestand formaat.');
+      return;
+    }
+
+    if (!importedSessions.length) {
+      alert('Het bestand bevat geen opgeslagen sessies.');
+      return;
+    }
+
+    if (confirm(`Backup gevonden met ${importedSessions.length} sessies. Wil je deze herstellen en samenvoegen?`)) {
+      const sessionMap = new Map();
+      sessions.forEach(s => { if (s && s.id) sessionMap.set(String(s.id), s); });
+      
+      importedSessions.forEach(s => {
+        if (s) {
+          const id = s.id ? String(s.id) : Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+          s.id = id;
+          sessionMap.set(id, s);
+        }
+      });
+
+      sessions = Array.from(sessionMap.values());
+      saveLS();
+
+      loadProfile();
+      renderHome();
+      renderStats();
+
+      alert(`Succesvol hersteld! Er staan nu in totaal ${sessions.length} sessies in de tracker. ✅`);
+      show('home');
     }
   } catch (err) {
-    alert('Fout bij inlezen van backup-bestand.');
+    console.error('Importfout:', err);
+    alert('Fout bij het verwerken van het backupbestand: ' + err.message);
   }
 }
 
