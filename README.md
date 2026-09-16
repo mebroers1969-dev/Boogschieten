@@ -1,2 +1,0 @@
-# Boogschieten
-Boogschiet app
